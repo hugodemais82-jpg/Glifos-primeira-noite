@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Língua da Primeira Noite · glifos</title>
+<style>
+:root{--bg:#f4f2ee;--fg:#1a1a1a;--card:#fff;--mut:#777;--bd:#d8d4cc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161616;--fg:#f0eee9;--card:#222;--mut:#999;--bd:#3a3a3a}}
+:root[data-theme="dark"]{--bg:#161616;--fg:#f0eee9;--card:#222;--mut:#999;--bd:#3a3a3a}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0 auto;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding:20px;max-width:980px}
+h1{font-size:20px;margin:0 0 14px;font-weight:600}
+textarea{width:100%;min-height:80px;font:inherit;font-size:17px;padding:12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--fg);resize:vertical}
+.ctl{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:12px 0;font-size:14px;color:var(--mut)}
+button,select{font:inherit;font-size:14px;padding:7px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--fg)}
+button{cursor:pointer}
+#tr{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;font-size:15px;line-height:1.7}
+#tr b{color:var(--mut);font-weight:500;font-size:12px;display:block}
+#out{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;margin-top:16px}
+.w{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;text-align:center}
+.w svg{display:block;margin:0 auto;color:var(--fg)}
+.w small{display:block;margin-top:6px;color:var(--mut);font-size:12px;max-width:150px}
+.w small b{color:var(--fg);font-size:14px}
+.hint{font-size:13px;color:var(--mut);margin-top:6px;line-height:1.5}
+.hint b{color:var(--fg);font-weight:600}
+.grp{display:contents}
+.grp[hidden],details[hidden]{display:none}
+#alf{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:10px;margin-top:12px}
+#alf div{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 4px;text-align:center;font-size:13px;color:var(--mut)}
+#alf svg{display:block;margin:0 auto 4px;color:var(--fg)}
+#alf b{color:var(--fg);font-size:15px}
+details{margin-top:28px}
+summary{cursor:pointer;font-size:14px;color:var(--mut)}
+#dq{width:100%;margin-top:10px;font:inherit;font-size:15px;padding:9px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--fg)}
+#dlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:12px}
+.de{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:6px 10px;font-size:13px;color:var(--mut);line-height:1.35}
+.de b{color:var(--fg);font-size:14px}
+.de svg{flex:none;color:var(--fg)}
+.de svg.pg,.nopic{width:34px;height:34px}
+.nopic{flex:none}
+</style>
+</head>
+<body>
+<h1>Língua da Primeira Noite · glifos</h1>
+<textarea id="t">Eu bebo sangue na noite</textarea>
+<div class="ctl">
+  <label>Versão: <select id="vsel"><option value="t">Traços</option><option value="s">Símbolos</option></select></label>
+  <label>Entrada: <select id="src"><option value="a">detectar</option><option value="p">português</option><option value="v">língua da noite</option></select></label>
+  <span class="grp" id="c-t">
+    <label>Modo: <select id="m"><option value="p">Pictograma (kanji)</option><option value="c">Traço conectado</option><option value="e">Empilhado</option></select></label>
+    <label>Linha: <b id="pv">4</b> <input id="p" type="range" min="2" max="12" value="4"></label>
+    <label>Espessura: <b id="sv">4</b> <input id="s" type="range" min="2" max="8" value="4"></label>
+    <label>Espaço: <b id="gv">4</b> <input id="gp" type="range" min="0" max="12" value="4"></label>
+  </span>
+  <span class="grp" id="c-s" hidden>
+    <label>Direção: <select id="dirS"><option value="h">Horizontal</option><option value="v">Vertical</option></select></label>
+    <label>Tamanho: <b id="zvS">44</b> <input id="zS" type="range" min="24" max="80" value="44"></label>
+    <label>Espessura: <b id="svS">3</b> <input id="sS" type="range" min="1" max="8" value="3"></label>
+    <label>Espaço: <b id="gvS">8</b> <input id="gS" type="range" min="0" max="30" value="8"></label>
+  </span>
+  <label><input id="l" type="checkbox" checked> legenda</label>
+  <button id="d">Baixar SVG</button>
+</div>
+<div id="tr"></div>
+<div class="hint">Escreva em português (ou na língua) e veja a tradução palavra por palavra. <b>Traços:</b> cada palavra vira um pictograma, ou é soletrada com o alfabeto de traços quando não tem pictograma. <b>Símbolos:</b> cada palavra é soletrada com o alfabeto de símbolos. Plural = <i>-en</i>, diminutivo = <i>-ti</i>. Plurais, femininos e verbos conjugados são reconhecidos quando possível. A tradução é literal: não monta tempos verbais nem ordem da frase. O dicionário completo está no fim da página.</div>
+<div id="out"></div>
+<details id="alfd" hidden>
+  <summary>Ver alfabeto de símbolos</summary>
+  <div id="alf"></div>
+</details>
+<details id="dic">
+  <summary>Dicionário (<span id="dn"></span> palavras)</summary>
+  <input id="dq" type="search" placeholder="Buscar em português ou na língua">
+  <div id="dlist"></div>
+</details>
+<script>
+const MAP={A:'HHH',B:'HHV',C:'HHX',D:'HVV',E:'HVH',F:'HVX',G:'HXH',H:'HXV',I:'VVV',J:'HXX',K:'VHH',L:'VHV',M:'VHX',
+N:'VVH',O:'VXV',P:'VVX',Q:'VXH',R:'VXX',S:'XHH',T:'XHV',U:'XXX',V:'XHX',W:'XVH',X:'XVV',Y:'XVX',Z:'XXH'};
+const CW=66,CH=34,SL=22,PAD=12;
+const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
+const clean=s=>norm(s).replace(/[^A-Z-]/g,'');
+
+// ---------- dicionário: palavra|glosas|pictograma ----------
+const DATA=`ka|eu;meu;minha;me
+sa|você;seu;sua;te
+ra|ele;ela;dele;dela
+kana|nós;nosso;nossa
+sana|vocês;seus;suas
+rana|eles;elas;deles;delas
+ez|este;esta;isto
+oz|aquele;aquela;aquilo
+ne|agora
+ol|passado;ontem
+ven|futuro;amanhã
+nu|não
+ya|sim
+ke|que
+ko|quem
+ul|onde
+kraibom|porque
+kwan|quando
+ai|e
+ur|ou
+tek|mas
+kum|com
+sok|em;no;na
+keskag|de;do;da
+pur|para
+mara|mãe|PESSOA+CORACAO
+tor|pai|PESSOA+MONTANHA
+lia|filho;filha|FLOR+PESSOA
+sorun|irmão;irmã|PESSOA+PESSOA
+nana|cuidadora;babá|PESSOA/MAO
+vei|amigo;amiga|MAO+MAO
+hos|inimigo;inimiga|ESPADA+OLHO
+sesil|mulher|PESSOA/LUA
+leinhur|homem|PESSOA/SOL
+mumor|criança|PESSOA/FLOR
+kekax|senhor;senhora;chefe|COROA/PESSOA
+mara-kekax|mãe-senhora|CORACAO/COROA
+eiki|pálido;vampiro|PESSOA+DENTE
+askex|humano|PESSOA+SOL
+ikal|guarda;soldado|PESSOA+ESPADA
+vrinod|palhaço;brincalhão|PESSOA+ESTRELA
+gokas|nome|BOCA/ESTRELA
+vael|sangue|GOTA
+mun|boca|BOCA
+gavish|dente|DENTE
+ish|olho|OLHO
+graizeg|mão|MAO
+kor|coração|CORACAO
+sil|cabelo|CABELO
+skar|pele|MAO+TERRA
+gul|garganta|BOCA/GOTA
+rothhas|voz|BOCA+AGUA
+tur|pé|PE
+sevra|fome;sede|BOCA+GOTA
+vokdor|comida|PAO/PEIXE
+skis|pão|PAO
+dun|doce|FLOR+BOCA
+vur|amargo|BOCA+FOGO
+ael|água|AGUA
+vael-dun|vinho|COPO
+brul|barril|COPO/COPO
+rivush|ter|MAO/CASA
+denrin|querer|CORACAO+MAO
+suvek|ir|PESSOA+CAMINHO
+druthbi|vir|CAMINHO+PESSOA
+shulros|ver|OLHO+PESSOA
+athbil|ouvir|PESSOA+AGUA
+dik|falar|PESSOA+BOCA
+zomzaix|dormir|PESSOA+LUA
+elzum|acordar|PESSOA+SOL
+lezun|morrer;morte|PESSOA/TERRA
+ner|matar|ESPADA+PESSOA
+zusel|viver|ARVORE+CORACAO
+hakaes|amar;gostar|CORACAO+CORACAO
+vrakzer|medo;temer|OLHO/GOTA
+suvrum|ajudar|MAO+PESSOA
+laesmil|abrir|MAO+PORTA
+nus|fechar|PORTA/MAO
+shezdon|dar|MAO/PAO
+thintux|pegar|MAO+PAO
+sosh|correr|PESSOA+PE
+kryp|esconder|CASA/PESSOA
+plor|chorar|OLHO/AGUA
+esis|rir|BOCA+SOL
+ditix|brincar|PESSOA/ESTRELA
+neshiz|cantar|BOCA+LUA
+tazzul|esperar;ficar|PESSOA+ARVORE
+tac|calar|BOCA/TERRA
+trogrik|dor;machucar|MAO+ESPADA
+traes|comer|BOCA+PAO
+zil|beber|BOCA+COPO
+thuszur|saber|OLHO+ESTRELA
+treres|grande|MONTANHA
+kitu|pequeno|FLOR
+gud|bom|CORACAO+SOL
+grisdok|mau;ruim|CORACAO+ESPADA
+sothres|quente|FOGO+SOL
+veidog|frio|AGUA+LUA
+raelek|rápido|PE+FOGO
+geskes|devagar|PE+TERRA
+unvod|vermelho|GOTA+GOTA
+rakras|branco|LUA/LUA
+rotres|preto|TERRA+LUA
+gikkem|novo|FLOR+SOL
+maevuth|velho;antigo|ARVORE+LUA
+kutez|só;sozinho|PESSOA
+daedre|feliz|BOCA/SOL
+krux|triste|CORACAO/AGUA
+shekam|noite;escuro|LUA+ESTRELA
+zigraeg|dia;luz;sol|SOL
+zugror|lua|LUA
+kashur|estrela|ESTRELA
+hivaer|fogo|FOGO
+thaes|casa|CASA
+kemes|porta|PORTA
+thitush|janela|JANELA
+kar|calabouço;prisão|JANELA/TERRA
+zithsis|jardim|FLOR+ARVORE
+aikhul|rua;caminho|CAMINHO
+taeltus|cidade|CASA+CASA
+kezaeg|rio|AGUA+CAMINHO
+grathuk|chuva|AGUA/TERRA
+kezax|terra;chão|TERRA
+vreiri|ar
+vuzsek|um;uma|N1
+aveim|dois;duas|N2
+kolmur|três|N3
+draved|quatro|N4
+vrankil|cinco|N5
+ikruk|seis|N6
+vaes|sete|N7
+amair|oito|N8
+vikru|nove|N9
+daedrur|dez|N10
+tronsud|céu|NUVEM+ESTRELA
+gazir|nuvem|NUVEM
+limzon|vento|VENTO
+dradsun|raio;trovão;relâmpago;tempestade|NUVEM/FOGO
+skekik|neve|NUVEM/FLOR
+sothros|gelo|AGUA+TERRA
+tunhix|mar;oceano|AGUA+AGUA
+neinoz|lago|AGUA+FLOR
+nizin|ilha|TERRA/AGUA
+grezor|montanha;monte|MONTANHA
+thoktud|floresta;bosque|ARVORE+ARVORE
+burlain|campo;planície|TERRA+FLOR
+treig|deserto|TERRA/SOL
+mavad|pedra;rocha|TERRA+MONTANHA
+divrur|ferro|TERRA+FOGO
+keim|ouro|SOL+MAO
+kaem|prata|LUA+PEIXE
+kunki|árvore|ARVORE
+kaduk|flor|FLOR
+gebael|folha|ARVORE/FLOR
+naeskam|raiz|ARVORE/TERRA
+drod|fruta;fruto|ARVORE/GOTA
+groltok|semente|FLOR/GOTA
+skaek|erva;grama|FLOR/TERRA
+grothim|fumaça|NUVEM+FOGO
+zilkak|cinza|FOGO/TERRA
+skoksom|sombra|LUA/TERRA
+vezo|aurora;amanhecer|SOL/TERRA
+eimkeig|meio-dia|SOL/SOL
+zugrol|crepúsculo;anoitecer|SOL/LUA
+zithgoz|ano|ARVORE+SOL
+midaez|mês|LUA+SOL
+vath|tempo|SOL+LUA
+gethmak|sempre|SOL+SOL
+shaseil|nunca|NUVEM+TERRA
+gaigrar|animal;fera;besta|ANIMAL
+thumnon|lobo|ANIMAL+LUA
+gumal|cão;cachorro|ANIMAL+CASA
+meikok|gato|ANIMAL+OLHO
+dreth|rato|ANIMAL/TERRA
+isem|cavalo|ANIMAL+CAMINHO
+sessud|boi;vaca|ANIMAL+MONTANHA
+zedzak|ovelha;carneiro|ANIMAL+CABELO
+tukta|porco|ANIMAL+PAO
+kansaek|cervo;veado|ANIMAL+ARVORE
+haelman|urso|ANIMAL+MAO
+rakraz|raposa|ANIMAL+FOGO
+skosor|leão|ANIMAL+SOL
+zitheix|monstro|ANIMAL+DENTE
+thok|cobra;serpente;víbora|COBRA
+vak|dragão|COBRA+FOGO
+zeised|pássaro;ave|ASA+ANIMAL
+zas|corvo|ASA/TERRA
+zumvan|coruja|ASA+OLHO
+drizver|águia|ASA+SOL
+atu|pomba|ASA+CORACAO
+binvem|morcego|ASA+LUA
+sheth|abelha|ASA+FLOR
+skokuth|borboleta|ASA/FLOR
+sotheim|aranha|ARANHA
+zizis|peixe|PEIXE
+duldeir|ovo|ASA/GOTA
+enseik|mel|FLOR+GOTA
+aebi|asa|ASA
+shez|cabeça|CABELO/OLHO
+thaem|braço|MAO/MAO
+ontax|perna|PE/PE
+zaikrar|corpo|PESSOA/CORACAO
+sorler|osso|DENTE+TERRA
+sumgaix|carne|BOCA/CORACAO
+skizum|alma|CORACAO/LUA
+saikves|espírito;fantasma;espectro|PESSOA/NUVEM
+rikrel|garra;unha|MAO+DENTE
+thovri|lágrima|OLHO+GOTA
+reikrak|deus;divino|COROA/SOL
+droshor|santo;santa;sagrado|COROA+ESTRELA
+rivaek|templo;igreja;capela|CASA/SOL
+eivik|rezar;orar;oração|BOCA+SOL
+zizik|perdoar;perdão|MAO+CORACAO
+railvis|recusar;recusa;recusante|BOCA+PORTA
+vrathad|fé;fiel|CORACAO+ESTRELA
+shirak|paz|CORACAO+FLOR
+avain|guerra;batalha;lutar|ESPADA+ESPADA
+ikvur|vida|ARVORE/CORACAO
+theril|morto;morta|PESSOA/TERRA
+momud|cemitério;necrópole|CASA/TERRA
+kelgod|sonho;sonhar|LUA+OLHO
+sisha|diabo;demônio|PESSOA/FOGO
+vus|anjo|PESSOA+ASA
+rozmal|fada|FLOR+ASA
+maibar|mago;bruxo|PESSOA+FOGO
+vrainir|gigante|PESSOA/MONTANHA
+vataig|livre;liberdade|PESSOA/ASA
+vazer|servo;escravo|PESSOA+TERRA
+asuz|rei|COROA+SOL
+gruthae|rainha|COROA+LUA
+kaedkex|príncipe;princesa|COROA+FLOR
+tis|reino|COROA+TERRA
+skeshar|povo;gente|PESSOA/PESSOA
+kuzik|cavaleiro|PESSOA/ANIMAL
+zunzis|mercador|PESSOA+PAO
+meilrog|ladrão|MAO/LUA
+veid|padre;sacerdote;monge|COROA+CORACAO
+segruk|pescador|PESSOA+PEIXE
+deth|castelo|CASA+COROA
+buvak|taverna;estalagem|CASA+COPO
+rurlain|barco;navio|CASA/AGUA
+zemsex|ponte|CAMINHO/AGUA
+skuhik|torre|CASA/CASA
+mer|muro;parede|TERRA+TERRA
+eivus|caverna;gruta|MONTANHA/CASA
+revraex|aqui|TERRA/PE
+orheid|ali;lá|CAMINHO/PE
+nadon|trabalhar|MAO+FOGO
+rolsaer|pensar|CABELO+ESTRELA
+vulsuz|voar|ASA+CAMINHO
+sovaik|nadar|PESSOA/AGUA
+ulmoz|cair|PESSOA/PE
+ailek|subir|PE/MONTANHA
+redrur|descer|MONTANHA/PE
+ulus|caçar|ANIMAL+ESPADA
+hek|plantar|MAO+FLOR
+bokdan|construir|CASA+MAO
+trosson|queimar|FOGO+CASA
+ziseiz|nascer|SOL+PESSOA
+shusud|mentira;mentir|BOCA+ESPADA
+bekrud|verdade;verdadeiro|OLHO+SOL
+seisnas|fugir|PESSOA+PORTA
+kibus|procurar;buscar|OLHO+CAMINHO
+latan|achar;encontrar|OLHO+MAO
+gesheth|lembrar;memória|CABELO+LUA
+relgain|esquecer|CABELO+NUVEM
+dodlair|dançar|PESSOA+VENTO
+bes|tocar|MAO+OLHO
+maton|proteger|PORTA+PESSOA
+thosil|criar|MAO+SOL
+shoskor|julgar|OLHO+MONTANHA
+sar|cozinhar|FOGO+PAO
+luthlox|viajar|PE+CAMINHO
+detaik|gritar|BOCA+VENTO
+rilus|sussurrar|BOCA+NUVEM
+krineik|forte|MAO+MONTANHA
+bek|fraco|MAO+FLOR
+heknug|alto|NUVEM/MONTANHA
+ketrish|baixo|TERRA+PE
+zimex|longe|CAMINHO+CAMINHO
+kirul|perto|CAMINHO+PE
+shidoth|cheio|COPO/AGUA
+buvor|vazio|COPO
+vroz|verde|ARVORE+FLOR
+beskor|azul|NUVEM+AGUA
+vathkar|amarelo|SOL+FLOR
+hathaer|doente|PESSOA/GOTA
+skusais|cruel|CORACAO+FOGO
+shiskek|puro;limpo|CORACAO+AGUA
+eizae|claro|SOL+AGUA
+vegith|mais|FLOR+MONTANHA
+vaksoth|muito|MONTANHA+MONTANHA
+vamad|pouco|FLOR+FLOR
+vikrair|todo;tudo|ESTRELA+ESTRELA
+zeir|nada|TERRA/TERRA
+vakok|cem|N10+N10
+naklal|mil|N10/N10
+edres|primeiro|N1+SOL
+boguk|último|N1+LUA
+sohas|espada|ESPADA
+zog|escudo|PORTA+MAO
+aevein|taça;cálice|COPO+SOL
+tilon|cerveja|COPO+PAO
+traix|coroa|COROA
+skakes|já|SOL+PE
+guhik|ainda|SOL+CAMINHO
+aetish|talvez|CAMINHO+NUVEM
+thaz|também|CAMINHO/CAMINHO
+kavok|entre|PORTA+PORTA
+rovun|sobre;acima|ESTRELA/CAMINHO
+dimrak|sob;abaixo|CAMINHO/TERRA
+kaiban|dentro;interior|CASA+GOTA
+krosos|fora;exterior|PORTA+CAMINHO
+skukax|até|CAMINHO+PORTA
+gravred|contra|ESPADA+PORTA
+haezoz|sem|MAO+NUVEM
+nok|menos|FLOR+PE
+tak|bem|CORACAO/CAMINHO
+shozvok|tão;tanto|ESTRELA+MONTANHA
+thasin|bastante;suficiente|COPO+CORACAO
+serud|avô;avó|PESSOA/ARVORE
+kaix|neto;neta|FLOR/ARVORE
+shurkiz|tio;tia|PESSOA/CASA
+shashez|marido;esposo;esposa;cônjuge|CORACAO+CASA
+daez|bebê;recém-nascido|PESSOA+GOTA
+tresvos|jovem|PESSOA+FLOR
+zinrer|ancião;idoso|LUA+PESSOA
+vrez|vizinho;vizinha|PESSOA+CASA
+baedkiz|estrangeiro;forasteiro;peregrino|PESSOA/CAMINHO
+makvez|mestre;professor|PESSOA+CABELO
+vraivun|aluno;aprendiz|PESSOA+OLHO
+kir|ferreiro|MAO/FOGO
+zevrak|padeiro|PESSOA/PAO
+dredux|fazendeiro;camponês;agricultor|FLOR/PESSOA
+uthgaes|médico;curandeiro|PESSOA+MAO
+kitroz|bardo;poeta;cantor|PESSOA/BOCA
+nothush|assassino;matador|GOTA+PESSOA
+shumod|nariz|OLHO/BOCA
+vizkar|orelha|CABELO+AGUA
+zaes|língua|BOCA/AGUA
+vrernur|dedo|MAO/CABELO
+zurun|barriga;ventre|PAO+CORACAO
+eivred|rosto;face|OLHO+BOCA
+shibem|veia|GOTA+CAMINHO
+ikrax|pescoço|CABELO/GOTA
+aizak|suor|GOTA+SOL
+kimaed|beijo;beijar|BOCA+BOCA
+buthom|abraço;abraçar|MAO/CORACAO
+sidzeg|leite|ANIMAL/AGUA
+itrosh|sal|AGUA+ESTRELA
+greitak|maçã|ARVORE+GOTA
+kusem|uva|ARVORE+COPO
+seter|trigo;grão|FLOR+PAO
+kardeiz|banquete;festa|PAO+ESTRELA
+gugus|faca;punhal|ESPADA+MAO
+gosraex|veneno|COBRA/GOTA
+skazhiz|remédio;cura;curar|FLOR/CORACAO
+noszez|fonte;nascente|AGUA/MONTANHA
+esor|onda|AGUA+VENTO
+bakael|praia;costa|TERRA+AGUA
+lihug|vale|MONTANHA/CAMINHO
+tozez|colina;morro|MONTANHA+FLOR
+zeisam|pântano;brejo|AGUA+ARVORE
+naekuz|trilha;atalho|CAMINHO+FLOR
+zenir|névoa;neblina;nevoeiro|NUVEM/TERRA
+rair|orvalho|GOTA/FLOR
+rushaez|terremoto|TERRA+VENTO
+ethes|vulcão|MONTANHA+FOGO
+ruk|brasa|FOGO+GOTA
+ozzur|chama|FOGO/FOGO
+tiskae|vela|FOGO+CABELO
+haekun|tocha;lanterna|FOGO+MAO
+zassor|espelho|OLHO+JANELA
+vaerar|corda|CABELO/CAMINHO
+leiraer|chave|PORTA/ESPADA
+bidgu|túmulo;sepulcro;caixão|TERRA/PESSOA
+vavas|anel|MAO/COROA
+gez|gema;jóia;joia;diamante|ESTRELA+TERRA
+skad|moeda;dinheiro|SOL+TERRA
+shom|tesouro|COPO/ESTRELA
+vogrun|livro|JANELA+PORTA
+vriras|carta|JANELA/CAMINHO
+kekloth|mapa|JANELA+CAMINHO
+neix|escrever|MAO/JANELA
+ibais|ler|OLHO/JANELA
+vaiskin|cama|LUA/CASA
+zodgush|mesa|COPO/TERRA
+oskon|fogueira;lareira|FOGO/CASA
+tonok|mercado;praça|CASA/PAO
+vragrus|porto|PORTA/AGUA
+krevith|sentar|PE/PESSOA
+esdin|levantar|PE+MONTANHA
+meix|andar;caminhar|PE/CAMINHO
+vishox|pular;saltar|PE+NUVEM
+goz|empurrar|MAO/MONTANHA
+loshik|puxar|MAO+CAMINHO
+shitrod|jogar;atirar;arremessar|MAO+VENTO
+reir|cortar|ESPADA+PAO
+hikon|quebrar;partir|MAO/COPO
+soshim|amarrar;ligar|MAO+CABELO
+lum|prender;capturar|MAO+JANELA
+urmu|soltar|MAO+ASA
+eirun|morder|DENTE/BOCA
+leisaek|música;melodia|ASA+ESTRELA
+laez|receber|PAO/MAO
+shakrer|pagar;comprar|MAO+COPO
+odne|sentir|CORACAO/PESSOA
+vakon|odiar|CORACAO/ESPADA
+einra|vencer;ganhar|PESSOA+COROA
+rithos|perder;perdido|MAO/NUVEM
+shavra|ferir;ferida|ESPADA+GOTA
+mazir|crescer|FLOR/MONTANHA
+draized|parar|PE/TERRA
+orzais|começar;início|SOL/CAMINHO
+badun|fim;terminar;acabar|CAMINHO/PORTA
+krod|escolher|MAO+ESTRELA
+geik|contar;narrar;história;conto|BOCA+JANELA
+zaek|perguntar;pedir|BOCA/MAO
+daevrak|responder|BOCA+MAO
+koslem|jurar;prometer;promessa;juramento|BOCA+COROA
+kuhos|cheirar;cheiro|NUVEM+OLHO
+zevrein|provar;sabor|BOCA+ESTRELA
+skeima|tremer|PESSOA/VENTO
+rumveg|pesado|MONTANHA+PE
+enzo|leve|NUVEM+PE
+drid|duro|TERRA+ESPADA
+hul|macio;mole|NUVEM+MAO
+ashom|afiado|ESPADA+DENTE
+volluk|cego|OLHO+PORTA
+sovrag|mudo|PORTA/BOCA
+thaegar|louco;louca|CABELO+VENTO
+sas|sábio|CABELO/ESTRELA
+kror|corajoso;bravo;valente|CORACAO+MONTANHA
+krenum|covarde|CORACAO/PE
+thuksir|orgulhoso|COROA+VENTO
+geikked|humilde|COROA/TERRA
+theth|rico|MAO/SOL
+bireth|pobre|MAO/TERRA
+zeknak|belo;bonito;lindo|FLOR+OLHO
+droth|feio|OLHO/ESPADA
+umbum|seco|TERRA/VENTO
+beik|marrom;castanho|TERRA+ARVORE
+zik|roxo;violeta|GOTA+NUVEM
+sathu|hoje|SOL/PE
+rirur|manhã|CAMINHO+SOL
+zar|tarde;entardecer|SOL+NUVEM
+saikdox|meia-noite|LUA+LUA
+voshik|inverno|ARVORE/NUVEM
+krunta|verão|ARVORE/SOL
+skas|primavera|FLOR/SOL
+skaid|outono|ARVORE+VENTO
+seiver|semana|SOL+N7
+sileiz|hora|SOL/N1
+thokduk|vinte|N2+N10
+kothsir|trinta|N3+N10
+mael|quarenta|N4+N10
+zaznol|cinquenta|N5+N10
+lizsor|vulto;sombrio|LUA/PESSOA
+zuzal|maldição;amaldiçoar|BOCA/FOGO
+daekdu|bênção;abençoar|BOCA+CORACAO
+dokrai|ritual|FOGO+ESTRELA
+daesash|sacrifício|GOTA+FOGO
+maidsil|altar|CASA+FOGO
+risdaz|véu|CABELO/NUVEM
+lothsed|amuleto|ESTRELA/CORACAO
+shishax|profecia;oráculo|OLHO+NUVEM
+visheir|destino;sina|CAMINHO+ESTRELA
+kuzgeir|sorte|ESTRELA+MAO
+drokeik|feitiço;encantamento|ESTRELA+BOCA
+vothaik|portal|PORTA+ESTRELA
+thosh|abismo;precipício|TERRA/NUVEM
+behaz|inferno|FOGO+TERRA
+nusik|paraíso|FLOR/NUVEM
+zotaer|brilhar;brilho|SOL+ESTRELA
+vitraez|trevas|LUA/NUVEM
+likmaer|eclipse|LUA/SOL
+skor|cometa|ESTRELA+FOGO
+mevrek|arco|ESPADA+VENTO
+zoth|flecha|ESPADA/VENTO
+unmig|lança|ESPADA+CAMINHO
+kairam|martelo|TERRA+MAO
+heril|armadura|PESSOA/PORTA
+vuthzag|elmo|CABELO+PORTA
+teisus|vitória|COROA+ESPADA
+egraek|derrota;derrotar|ESPADA/TERRA
+idtuth|exército;tropa|ESPADA/PESSOA
+meibeik|acampamento|CASA+ARVORE
+beiz|cerco;sitiar|CASA+ESPADA
+skaidri|arma|ESPADA/MAO
+vrimur|tortura;torturar|MAO/DENTE
+izzos|cela|JANELA/PORTA
+vrudmis|resgatar|MAO/PORTA
+vethus|salvar;salvação|MAO/PESSOA
+huth|perigo|ESPADA+NUVEM
+kokosh|seguro;segurança|CASA+CORACAO
+skemris|traidor;trair|MAO/ESPADA
+kaizail|ira;raiva;raivoso|CORACAO/FOGO
+kizik|inveja;invejar|OLHO+CORACAO
+shasmos|desejo;cobiça;desejar|OLHO/MAO
+numgir|alegria|CORACAO/SOL
+nael|solidão|TERRA+PESSOA
+muztuk|esperança|CORACAO/ESTRELA
+adruz|desespero|CORACAO/TERRA
+draz|vergonha|GOTA/PESSOA
+vror|honra|COROA/CORACAO
+tivril|culpa|ESPADA+CORACAO
+iser|inocente|CORACAO/FLOR
+seras|ansiedade;preocupação|CORACAO/VENTO
+shig|calmo;tranquilo|AGUA+CORACAO
+veix|fúria|FOGO/CORACAO
+rek|saudade|CORACAO+LUA
+aenvug|piedade;compaixão|CORACAO/MAO
+gak|adorar;adoração|SOL+CORACAO
+kraetez|sono;soneca|LUA+CABELO
+tikran|jantar|PAO+LUA
+usmed|almoço|PAO+SOL
+zozin|jejum;jejuar|BOCA+TERRA
+raek|bêbado;embriagado|COPO+VENTO
+thithur|banho;banhar|AGUA+PESSOA
+vuzzoz|roupa;vestir|PESSOA+NUVEM
+drebol|manto;capa|NUVEM/PESSOA
+vudhal|chapéu|COROA/CABELO
+ekod|bolsa;saco|COPO+MAO
+kegroz|jarro;vaso;pote|COPO+COPO
+naezeik|lâmpada|FOGO/JANELA
+zazeig|berço|LUA+CASA
+koteik|entrada|PORTA/CAMINHO
+zom|soleira;limiar|PORTA/TERRA
+ludmer|hóspede;visitante|PORTA/PESSOA
+truzaez|convidar|BOCA/PORTA
+nozrir|exílio;exilado|CAMINHO/PESSOA
+rin|roubar;furtar|MAO+LUA
+zeth|sapo;rã|ANIMAL+AGUA
+erlaz|escorpião|ARANHA+DENTE
+zaidsuz|formiga|ARANHA+TERRA
+edeiz|mosca;inseto|ASA+ARANHA
+vos|vaga-lume|ASA+FOGO
+nedvil|pavão|ASA+COROA
+olod|cisne|ASA+AGUA
+nazol|ganso;pato|ASA/AGUA
+temleir|galo;galinha|ASA/SOL
+vreis|fênix|ASA/FOGO
+sish|unicórnio|ANIMAL+ESTRELA
+kozvol|baleia|PEIXE+MONTANHA
+shuzoz|golfinho|PEIXE+ASA
+shiksus|tartaruga|ANIMAL/CASA
+hed|lebre;coelho|ANIMAL+VENTO
+zais|cabra|ANIMAL/DENTE
+saebaer|burro;asno|ANIMAL+PE
+sishaz|filhote|ANIMAL+FLOR
+imais|rebanho|ANIMAL+ANIMAL
+eisem|chifre|DENTE/MONTANHA
+vommog|pena;pluma|ASA+CABELO
+uhog|ninho|ASA/CASA
+suskor|teia|ARANHA/CAMINHO
+vatei|rosa|GOTA+FLOR
+sith|lírio|FLOR+LUA
+nethes|espinho|FLOR+ESPADA
+tisi|casca|ARVORE/MAO
+omeik|galho;ramo|ARVORE+CAMINHO
+revruk|noz;castanha|FLOR+TERRA
+utraez|cogumelo|FLOR+NUVEM
+krus|hera;trepadeira|FLOR+COBRA
+gresur|azeitona;oliva|ARVORE+PAO
+odrel|cevada|FLOR+COPO
+graek|palha|FLOR+VENTO
+vedkag|penhasco;falésia|MONTANHA+VENTO
+trasin|cachoeira;queda|AGUA/PE
+zix|bruma|NUVEM+LUA
+skeik|granizo|NUVEM+DENTE
+telman|lava|FOGO+AGUA
+azvek|faísca|FOGO/ESTRELA
+helheil|carvão|FOGO+ARVORE
+gisker|mármore|TERRA/LUA
+semvaez|cristal|GOTA/ESTRELA
+hezu|areia|TERRA+GOTA
+skex|poeira;pó|VENTO+TERRA
+shezek|mundo|TERRA+ESTRELA
+thodig|fronteira;limite|TERRA+PORTA
+vaelod|norte|ESTRELA+CAMINHO
+okru|sul|TERRA+SOL
+roz|leste;oriente|CAMINHO/SOL
+tilgon|oeste;ocidente|LUA+CAMINHO
+adun|direita|SOL/MAO
+dal|esquerda|LUA+MAO
+thuzmis|centro;meio|ESTRELA/ESTRELA
+vrelaez|lei|COROA/JANELA
+eira|justiça;justo|OLHO/MONTANHA
+thezoz|caos|VENTO+VENTO
+kralar|dúvida;duvidar|OLHO+VENTO
+kraiz|acreditar;crer|CORACAO+OLHO
+thamash|sabedoria|ESTRELA/CABELO
+vivruk|ignorância;ignorar|OLHO/NUVEM
+kod|palavra;verbo|BOCA/JANELA
+neisu|canção;hino|ESTRELA/BOCA
+druthil|silêncio|PORTA+BOCA
+skisan|barulho;ruído|BOCA+MONTANHA
+drimzin|som|AGUA+OLHO
+druvish|imagem;retrato|JANELA+OLHO
+kamdin|cor;colorido|NUVEM+FLOR
+lozdor|número|N1+N2
+nusi|geração;linhagem|ARVORE/PESSOA
+neiszis|família;clã|CASA+PESSOA
+sithar|herdeiro;herança|PESSOA/COROA
+gein|saudar;cumprimentar|MAO+BOCA
+trisded|despedir;adeus|MAO/CAMINHO
+geshik|mover;movimento|PE+VENTO
+saevik|carregar|MAO+ANIMAL
+zoske|lavar|MAO+AGUA
+rinu|cavar|TERRA/MAO
+shigrix|tecer;costurar|CABELO+MAO
+sailzik|pintar;desenhar|NUVEM/MAO
+dukar|misturar|MAO/AGUA
+maibaer|varrer|MAO/VENTO
+krun|inundar|AGUA+CASA
+vresh|mudar;transformar|VENTO+PESSOA
+eikrae|aconselhar;conselho|BOCA+CABELO
+rik|ensinar|BOCA/PESSOA
+kroth|aprender|OLHO/PESSOA
+hithgor|respirar;respiração|NUVEM+BOCA
+reisiz|tossir|BOCA/VENTO
+hosheim|rasgar|DENTE+MAO
+guseik|sessenta|N6+N10
+shix|setenta|N7+N10
+shaike|oitenta|N8+N10
+skozto|noventa|N9+N10
+shaegog|onze|N10+N1
+kag|doze|N10+N2
+zakrir|treze|N10+N3
+sokril|catorze|N10+N4
+rarruk|quinze|N10+N5
+drur|dezesseis|N10+N6
+thahish|dezessete|N10+N7
+vokul|dezoito|N10+N8
+nuzair|dezenove|N10+N9
+thahai|metade|N1/N2
+drushon|dobro;duplo|N2+SOL
+grek|segundo|N2/SOL
+shikra|terceiro|N3+SOL
+sazkar|quinto|N5+SOL
+ses|porém;contudo|PORTA+NUVEM
+zum|se|CAMINHO/NUVEM
+vrug|como|OLHO/CAMINHO
+shimsex|qual|OLHO/ESTRELA
+zathith|outro;outra|ESTRELA+PESSOA
+baenban|mesmo;próprio|ESTRELA/PESSOA
+raedrus|diferente|CAMINHO+MAO
+ziskul|cada;qualquer|N1+PESSOA
+drik|alguém;algum|NUVEM+PESSOA
+zinnun|pacto;acordo|COROA+MAO
+dreike|obrigado;gratidão|CORACAO+PORTA
+thuntux|sapato;bota|PE+PORTA
+shomrun|mendigo|PESSOA+COPO
+vreiz|saquear;pilhar|MAO+CASA
+vothaeg|lama;barro|TERRA+NUVEM
+zokain|círculo;redondo|ESTRELA+SOL
+shiklur|ordem|ESTRELA/PORTA
+zir|esculpir|MONTANHA+MAO
+thidsi|voltar;retornar|PE+CASA
+indin|golpear;bater|MAO+COBRA
+skik|enterrar|TERRA+CORACAO
+ligo|desenterrar|COBRA+TERRA
+shosax|renascer|SOL/PESSOA
+zidraek|então;portanto|ESTRELA+PORTA
+kuvros|igual|N2+N2
+zukdan|mordida|DENTE+PESSOA
+trekzel|sanguinário|GOTA+ESPADA
+hutrag|imortal;imortalidade|ARVORE+PESSOA
+aiznoz|eterno;eternidade|ESTRELA/LUA
+rairos|cripta;catacumba|CASA+TERRA
+kraevix|presa;vítima|ANIMAL+GOTA
+rutaes|predador|PESSOA/DENTE
+uzsaiz|caçador|PESSOA+ANIMAL
+tezneth|infectar;contágio|GOTA+VENTO
+thondix|peste;praga|COBRA+NUVEM
+tanlai|febre|FOGO+PESSOA
+rekveis|cicatriz|ESPADA+TERRA
+krez|duque;comandante|COROA/ESPADA
+sharog|nobre;nobreza|COROA+CASA
+hekreth|plebeu|PAO+PESSOA
+onog|palácio|COROA/CASA
+shirvex|trono|COROA+PE
+saedkag|cetro|COROA/MAO
+vekor|selo;sinete|MAO+COROA
+ulsis|decreto|COROA+BOCA
+mezmor|imposto;tributo|PAO+MAO
+krohid|tribunal|CASA+MONTANHA
+trismoz|executar;execução|ESPADA+CABELO
+vuk|herói;heroína|COROA+PESSOA
+shethax|vila;aldeia|CASA+FLOR
+krulrir|fosso;vala|CAMINHO+AGUA
+thedkig|muralha;fortaleza|CASA/MONTANHA
+venbad|subterrâneo;porão|TERRA/CASA
+daskex|estábulo|CASA+ANIMAL
+shaedde|forno;forja|CASA/FOGO
+vroszoz|moinho|VENTO+CASA
+tus|poço|AGUA/CASA
+nizis|vender|COPO/MAO
+thodox|trocar;troca|CAMINHO/MAO
+zumtog|cérebro|CABELO/CORACAO
+skubus|pulmão|NUVEM/CORACAO
+ashus|fígado|CORACAO+GOTA
+neshar|joelho|PE+PE
+sathor|ombro|CABELO/MAO
+kreik|peito|CORACAO/CABELO
+shur|barba|CABELO+BOCA
+haekud|sobrancelha|CABELO+OLHO
+haidoz|testa|CABELO+SOL
+kemtul|punho|MONTANHA/MAO
+sothai|alimento;refeição|PAO+BOCA
+saileir|bebida|COPO/BOCA
+etrei|queijo|ANIMAL/PAO
+dutrar|manteiga|PAO+ANIMAL
+selzim|vinagre|COPO+FOGO
+galnom|tempero;especiaria|FLOR/PAO
+ukkae|sopa|AGUA+PAO
+ivur|assado;assar|PAO+FOGO
+gursod|ferver|AGUA+FOGO
+laezkaz|alimentar;nutrir|MAO/BOCA
+limug|açúcar|PAO+FLOR
+sheid|cadeira;banco|PE/CASA
+gorraim|pano;tecido|NUVEM+CABELO
+sathler|cobertor;colcha|NUVEM/LUA
+gudgam|baú;caixa|COPO+PORTA
+baek|arca|CASA/COPO
+zoskuth|vidro|JANELA+AGUA
+nenki|cinto;cinturão|CABELO/PE
+shekei|carroça;carruagem|SOL+CASA
+lizog|remo|AGUA+MAO
+vrushek|âncora|ESPADA+AGUA
+shokais|rede|PEIXE+CABELO
+treir|anzol|PEIXE+ESPADA
+rainkis|machado|ESPADA+ARVORE
+traeli|pá|TERRA/ESPADA
+zod|agulha|ESPADA+JANELA
+shekruk|trombeta;corneta|ASA+BOCA
+trorron|harpa;lira|CABELO+ASA
+veik|flauta|CAMINHO+BOCA
+daedes|papel;pergaminho|JANELA+NUVEM
+ozog|tinta|GOTA+JANELA
+kilkan|mosteiro|CASA/CORACAO
+laesok|cruz|ESPADA/ESPADA
+dizig|relíquia|DENTE+ESTRELA
+kuz|pecado;pecar|CORACAO+TERRA
+shostu|confessar;confissão|CORACAO/BOCA
+skudrur|penitência;arrepender|CORACAO/GOTA
+neze|redenção;redimir|CORACAO/PORTA
+toskur|voto;oferenda|MAO/ESTRELA
+sharbag|purificar|AGUA/FOGO
+vrukar|vigília;vigiar|OLHO+LUA
+thotrin|profeta;vidente|PESSOA/OLHO
+rakmun|bruxa;feiticeira|PESSOA/CABELO
+mek|brigar;combater|DENTE/MAO
+trizair|defender|ESPADA/PORTA
+dinrar|atacar;ataque|ESPADA+PE
+leizvun|rastejar;arrastar|COBRA+CAMINHO
+nadni|seguir;perseguir|PE+PESSOA
+isher|liderar;guiar|COROA+CAMINHO
+salvu|obedecer|PE/COROA
+nirto|rebelar;rebelião|COROA+FOGO
+thaigis|enviar;mandar|VENTO+MAO
+usheis|espalhar|MAO/FLOR
+mizaer|dividir;separar|ESPADA/PAO
+vrerud|encher|AGUA/COPO
+shizo|olhar;observar|OLHO/PORTA
+shemvom|conhecer|OLHO/CORACAO
+drumrod|entender;compreender|CABELO+CORACAO
+zisgun|gemer;lamentar|GOTA+BOCA
+vrurvu|uivar|ANIMAL/LUA
+rerul|latir|ANIMAL+BOCA
+rikve|chegar|PE/PORTA
+zukrum|sair|PORTA+PE
+uskod|entrar|CASA+PE
+saektux|largo;amplo|CAMINHO/MONTANHA
+skurka|estreito;apertado|PORTA/PORTA
+etrai|grosso;espesso|NUVEM+MONTANHA
+vroshak|fino;delgado|NUVEM/CABELO
+zaehuk|profundo|AGUA+MONTANHA
+tos|reto;correto|CAMINHO/ESPADA
+sutrux|curvo;torto|CAMINHO+COBRA
+vrarar|azedo;ácido|BOCA/DENTE
+travri|molhado;úmido|AGUA/PESSOA
+innik|gentil;manso|CORACAO+NUVEM
+hannur|severo;rígido|ESPADA/CORACAO
+kakos|maravilhoso;incrível|ESTRELA+OLHO
+heik|terrível;horrível|OLHO+FOGO
+modik|prateado|LUA/MAO
+zunviz|cobre|TERRA/FOGO
+tovan|ruivo|CABELO+FOGO
+kinsaex|grisalho|CABELO/LUA
+soskar|logo;breve|PE+SOL
+ozox|frequente;frequentemente|SOL/N10
+kunror|raro;raramente|SOL+N1
+kiz|súbito;repente|FOGO+VENTO
+vuskor|velhice|LUA/ARVORE
+gredrex|século|ARVORE/ARVORE
+vekdeis|geada|GOTA+LUA
+esed|calor|FOGO/PESSOA
+aevraez|arco-íris|NUVEM+SOL
+naekun|brisa|VENTO+FLOR
+drekraz|furacão;tornado|VENTO/MONTANHA
+methvem|celeiro|CASA+PAO
+sivrith|pastor;pastora|ANIMAL+PESSOA
+grurar|viúvo;viúva|TERRA/CORACAO
+thibig|casamento;casar|CORACAO+COROA
+skashei|pátria;lar|CORACAO/CASA
+geteil|ninguém|PESSOA+JANELA
+krekvig|noturno|LUA+ASA
+omsoth|diurno|SOL+ASA
+tregur|punir;castigo;punição|ESPADA+FLOR
+thivas|costas|VENTO/PESSOA
+buve|palma|MAO+PEIXE
+vanith|pegada|PE+GOTA
+vaer|saúde;saudável|CORACAO+ARVORE
+ezesh|doença;enfermidade|PESSOA+ARANHA
+utan|bastão;cajado|MAO+ARVORE
+maik|roda|CAMINHO+LUA
+norrox|ferramenta;instrumento|MAO+ARANHA
+vaidda|corrente;cadeia;algema|COBRA/MAO
+lizir|tambor|COPO+OLHO
+shamder|necromante|DENTE/TERRA
+ulash|segurar;agarrar|MAO+PE
+utun|reunir;juntar|COPO+PESSOA
+aelzai|unir|CORACAO/ASA
+vissos|ávido;guloso|BOCA/ESPADA
+zeihin|preguiçoso;preguiça|PE+LUA
+teihith|nu;nua|PESSOA/PEIXE
+sengik|sujo;imundo|CABELO+TERRA
+kraila|dourado|SOL/COROA
+ulsedreg|finalmente|CAMINHO+CORACAO
+aekesh|junto;juntos|NUVEM+NUVEM
+graetar|ciclo|FLOR/LUA
+uzos|gêmeo;gêmea|OLHO+OLHO
+trobeth|crânio;caveira|DENTE/PESSOA
+rirsaix|lábio|BOCA+FLOR
+grazmak|queixo|TERRA+BOCA
+seisdo|bochecha|BOCA+OLHO
+greirum|cotovelo|MAO/PE
+kreka|tornozelo|PE+MAO
+liskan|costela|DENTE+CABELO
+soskis|coluna;espinha|CAMINHO+DENTE
+ihud|estômago|PAO/CORACAO
+rerrul|rim|GOTA+CORACAO
+suthdur|pulso|CAMINHO/CORACAO
+hadush|saliva;cuspe|GOTA/BOCA
+tid|lamber|AGUA+BOCA
+muve|engolir|BOCA+CAMINHO
+vrig|cuspir|VENTO+BOCA
+livoth|vomitar|TERRA/BOCA
+thekrud|sangrar|GOTA/ESPADA
+thelvax|afogar|AGUA+NUVEM
+raez|sufocar|NUVEM/BOCA
+shoknu|suspirar|VENTO/BOCA
+vesko|bocejar|BOCA/LUA
+thazzag|espirrar|VENTO+GOTA
+tezsug|soluçar|CORACAO+BOCA
+shitrax|sorrir|SOL+BOCA
+raivag|piscar|OLHO/LUA
+hadaig|apontar|MAO/OLHO
+ulnes|acenar|VENTO/MAO
+koshag|ajoelhar|PE+ESTRELA
+shekod|curvar|CAMINHO+TERRA
+burak|esticar|CAMINHO+CABELO
+zumar|torcer|MAO/COBRA
+vik|apertar|CORACAO/MONTANHA
+gevor|despir|NUVEM/ESTRELA
+teloz|pentear|CABELO+CAMINHO
+gor|raspar|ESPADA/CABELO
+vuvug|furar;perfurar|PORTA+ESPADA
+evrim|bordar|FLOR+MAO
+trushok|moer|PAO+TERRA
+saimvim|amassar|AGUA/MAO
+zal|fritar|FOGO/PAO
+beskas|pesar|MONTANHA+CAMINHO
+bilain|medir|MAO+N1
+vruvais|calcular;somar|N2+N1
+skedmuz|emprestar|CAMINHO+PAO
+skula|herdar|COROA+ARVORE
+vunu|enganar;trapacear|BOCA+COBRA
+kanzin|fingir|BOCA+PESSOA
+sotheth|revelar|NUVEM/OLHO
+edril|descobrir|OLHO+TERRA
+venrak|inventar|CABELO/SOL
+tuvaez|explorar|PE+OLHO
+driraeg|vagar|PE/VENTO
+eizmer|acampar|CASA/ARVORE
+vroshek|navegar|CASA+AGUA
+kussan|pescar|PEIXE+MAO
+sharath|emboscar|ESPADA/ARVORE
+sedrai|libertar|PORTA+ASA
+zozrus|invocar|LUA+BOCA
+reiskox|banir|PORTA/ESTRELA
+veiskar|consagrar|COROA/FOGO
+zikeik|profanar|ESPADA+COROA
+gubil|ressuscitar|TERRA/ESTRELA
+traer|assombrar|NUVEM+CASA
+thadmiz|possuir|CORACAO+PESSOA
+skontex|enfeitiçar|ESTRELA/OLHO
+nukgoz|hipnotizar|LUA/OLHO
+rolrel|controlar|CABELO+PESSOA
+tagid|comandar|COROA/BOCA
+rammo|governar|COROA/CAMINHO
+lak|reinar|TERRA+COROA
+rokvish|conquistar|ESPADA/COROA
+lusveix|render|ESPADA+ESTRELA
+susrid|negociar|PAO/BOCA
+erbes|implorar|ESTRELA/MAO
+zordud|agradecer|ESTRELA+CORACAO
+thidvir|desculpar;desculpa|CORACAO/NUVEM
+shazki|culpar;acusar|OLHO+ESPADA
+emnez|testemunhar;testemunha|BOCA/OLHO
+drurlol|confiar|PORTA+CORACAO
+shezail|desconfiar;suspeitar|CORACAO/OLHO
+rerrod|admirar|LUA+CORACAO
+gedik|desprezar|OLHO/TERRA
+keiham|zombar|ESPADA+BOCA
+ishuk|provocar|FOGO+BOCA
+shusus|assustar;amedrontar|OLHO/FOGO
+vivrur|consolar|AGUA/CORACAO
+nuzor|acalmar|AGUA/ESTRELA
+kulaig|irritar|CORACAO+VENTO
+karzon|surpreender;surpresa|OLHO/VENTO
+ollun|hesitar|PE/NUVEM
+thobath|decidir|CABELO+ESPADA
+krera|poder;conseguir|MONTANHA+SOL
+saedrok|precisar|MAO+GOTA
+savoth|tentar|CAMINHO+OLHO
+shosaiz|parecer|ESTRELA+NUVEM
+vran|tornar|VENTO+SOL
+vinish|chamar|BOCA/CAMINHO
+haesae|funeral;enterro|TERRA/FLOR
+tishish|luto|LUA/CORACAO
+deiveis|testamento|JANELA+TERRA
+kruhor|dívida|PAO/TERRA
+seskag|dever;obrigação|CORACAO+CAMINHO
+vreir|direito|COROA+JANELA
+zeiz|prisioneiro;preso|PESSOA/JANELA
+drosu|carcereiro|JANELA+PESSOA
+thahor|juiz|MONTANHA+PESSOA
+kumzosh|advogado|MONTANHA/PESSOA
+drezkuk|crime|ESPADA+LUA
+dokzo|espião|OLHO/SOL
+tizik|mensageiro|ASA+PESSOA
+soshas|aliado|PESSOA/ESPADA
+asus|aliança|ESPADA/ESTRELA
+vukam|rival;adversário|ESPADA/OLHO
+vethol|conspiração;complô|LUA/BOCA
+deik|autoridade|COROA+MONTANHA
+kudrith|segredo|PORTA+LUA
+tobes|mistério;enigma|ESTRELA/NUVEM
+kosox|charada|BOCA/NUVEM
+grux|máscara|PORTA+OLHO
+zithok|capuz|CABELO/PESSOA
+kozak|castiçal;candelabro|FOGO/MAO
+sevath|ancestral;antepassado|ARVORE+TERRA
+krex|descendente|ARVORE+ESTRELA
+umem|sucessor|CAMINHO+COROA
+zuzil|seita|ESTRELA+LUA
+mermom|sino|COPO/VENTO
+kutre|estandarte;bandeira|VENTO+ESPADA
+nassik|tenda;barraca|CASA+NUVEM
+rethil|garrafa|COPO+AGUA
+rusge|prato|PAO+COPO
+vuzuth|tigela|AGUA+COPO
+zeid|colher|COPO+BOCA
+drolix|garfo|PAO+ESPADA
+thaigun|panela;caldeirão|COPO/FOGO
+kaeke|cesta|COPO+CABELO
+kuk|chicote|CABELO+COBRA
+aetrur|colar|ESTRELA+CABELO
+ubul|brinco|OLHO+CABELO
+uvoth|pulseira|COROA+CABELO
+vrethog|diadema|COROA/FLOR
+rur|tapete|CABELO/TERRA
+banmok|cortina|JANELA/NUVEM
+sezeiz|chaminé|CASA/NUVEM
+zeisael|telhado;teto|NUVEM/CASA
+zaehek|escada|CAMINHO+MONTANHA
+trath|degrau|PE/ESTRELA
+zeiskex|corredor|CASA+CAMINHO
+trimosh|sótão|MONTANHA+CASA
+huka|adega|COPO+CASA
+vatrug|despensa|PAO+CASA
+lol|cozinha|PAO/CASA
+kokok|quarto;alcova|CASA+LUA
+zaizos|varanda|CASA+VENTO
+kaskon|pátio|TERRA+CASA
+reshuk|portão|PORTA+MONTANHA
+kraikus|cerca|TERRA/ARVORE
+lirox|alçapão|PORTA+TERRA
+neikvez|túnel|TERRA+CAMINHO
+vikdik|lápide|TERRA+JANELA
+geth|relógio|SOL/CASA
+saekis|ampulheta|COPO+TERRA
+sezla|balança|MONTANHA+OLHO
+taskair|momento;instante|SOL/NUVEM
+riklaem|pesadelo|LUA+FOGO
+zethon|visão|LUA/ESTRELA
+trukrix|ilusão|VENTO+OLHO
+shunsim|milagre|SOL/ESTRELA
+baenkis|maravilha|SOL+OLHO
+baisar|magia;feitiçaria|ESTRELA/FOGO
+iskan|vingança|ESPADA/GOTA
+thuhis|ódio|FOGO+CORACAO
+egrish|paixão|SOL/CORACAO
+trasish|ciúme|CORACAO+COBRA
+thota|orgulho|COROA/VENTO
+suvro|coragem|MONTANHA+CORACAO
+taitos|lealdade|NUVEM+CORACAO
+kok|sofrimento;sofrer|ESPADA/AGUA
+inish|prazer|SOL/BOCA
+zubaix|descanso;repouso|LUA+ARVORE
+nidkoz|ventania|VENTO+MONTANHA
+koskus|maré|AGUA/LUA
+skuk|redemoinho|AGUA/VENTO
+golnur|poça|AGUA+GOTA
+shosis|riacho;córrego|AGUA/CAMINHO
+kilver|cascata|MONTANHA+AGUA
+kaiseil|toca|ANIMAL+TERRA
+vivror|colmeia|ASA+CASA
+skemmad|carvalho|ARVORE+MONTANHA
+siznosh|pinheiro|ARVORE+NUVEM
+rilos|salgueiro|ARVORE+AGUA
+shazhud|musgo|FLOR+AGUA
+zodex|samambaia|FLOR+CABELO
+deislem|trevo|FLOR+ESTRELA
+dobe|cardo|FLOR/ESPADA
+thizir|videira|ARVORE/COPO
+zox|milho|PAO/FLOR
+lizzain|feijão|GOTA+PAO
+geidgor|cebola|FLOR/OLHO
+nusho|alho|FLOR+DENTE
+dulrish|cenoura|FLOR+FOGO
+thilon|batata|TERRA+PAO
+bazaz|abóbora|SOL/FLOR
+muzush|cereja|GOTA+ARVORE
+trar|pêra|GOTA/ARVORE
+drereim|figo|NUVEM+ARVORE
+ges|romã|CORACAO/ARVORE
+duzvux|limão|SOL+ARVORE
+grorom|laranja|SOL/ARVORE
+itre|amêndoa|ARVORE+OLHO
+aehan|pinha|NUVEM/ARVORE
+thurash|javali|DENTE+ANIMAL
+melhein|alce|ANIMAL/ARVORE
+vriseix|lince|ANIMAL/OLHO
+zaesin|texugo|TERRA+ANIMAL
+sathos|doninha|ANIMAL/CAMINHO
+izge|esquilo|ARVORE+ANIMAL
+nishom|toupeira|TERRA/ANIMAL
+odem|falcão|ASA/OLHO
+mikog|gavião|ASA+DENTE
+izaiz|gralha|ASA+TERRA
+samher|pardal|TERRA+ASA
+drokis|rouxinol|ASA/BOCA
+shihith|cegonha|ASA+PE
+guz|garça|ASA/PE
+kaereis|andorinha|ASA+VENTO
+tished|abutre|ASA/DENTE
+luzgun|salmão|PEIXE+AGUA
+airmas|enguia|PEIXE+COBRA
+zolkiz|lagosta|PEIXE+FOGO
+suz|caranguejo|PEIXE+ARANHA
+krashak|polvo|PEIXE/ARANHA
+hubek|ostra|PEIXE+COPO
+einvu|tubarão|PEIXE+DENTE
+krail|lesma|AGUA+ANIMAL
+unzoz|caracol|CASA/ANIMAL
+heted|minhoca|COBRA/TERRA
+okuz|besouro|ARANHA+ASA
+skornex|grilo|ARANHA+BOCA
+lok|gafanhoto|ARANHA+PE
+bitheg|vespa|ASA+ESPADA
+ataik|mosquito|ASA+GOTA
+tontuth|pulga|ARANHA+GOTA
+ezair|carrapato|ARANHA/GOTA
+nedin|hiena|ANIMAL/BOCA
+botos|chacal|DENTE/ANIMAL
+druskez|tigre|ANIMAL/FOGO
+sumvin|pantera|LUA+ANIMAL
+krivar|elefante|ANIMAL/MONTANHA
+thaezom|camelo|ANIMAL/SOL
+gurteik|macaco|ARVORE/ANIMAL
+treilal|papagaio|BOCA+ASA
+zesam|égua|CAMINHO+ANIMAL
+zaereid|potro|CAMINHO/ANIMAL
+vrosman|mula|ANIMAL/PE
+traror|estranho|LUA+NUVEM
+nosnu|comum|TERRA/CAMINHO
+moma|famoso|BOCA/COROA
+grokrox|secreto;oculto|PORTA/LUA
+ellim|invisível|PORTA/OLHO
+thex|visível|SOL/OLHO
+von|real|TERRA+OLHO
+raisgur|falso|NUVEM+ESPADA
+haintad|certo|CAMINHO/OLHO
+zeizar|errado|NUVEM+CAMINHO
+itos|possível|PORTA+SOL
+trevrale|impossível|PORTA/MONTANHA
+neles|perigoso|ESPADA+FOGO
+aelsem|maldito|FOGO+LUA
+grekok|abençoado|ESTRELA/SOL
+teg|profano|TERRA/COROA
+skehi|corrupto;corrompido|CORACAO/COBRA
+shubik|faminto|TERRA/GOTA
+sutreir|sedento|AGUA/BOCA
+zozei|sonolento|VENTO/OLHO
+skeim|desperto|NUVEM/SOL
+troskog|furioso|MONTANHA/CORACAO
+keir|generoso|VENTO+CORACAO
+kraevi|avarento|ESTRELA/TERRA
+gegez|astuto;esperto|OLHO+COBRA
+shaes|tolo;bobo|CAMINHO/CABELO
+zukzak|ingênuo|FLOR+CORACAO
+grured|leal|PORTA/CORACAO
+rokreth|traiçoeiro|COBRA+MAO
+beix|silencioso|LUA+PORTA
+taetrar|barulhento|BOCA/MONTANHA
+vuskas|brilhante|ESTRELA+VENTO
+mumug|opaco|NUVEM+JANELA
+gravuz|transparente|JANELA/AGUA
+thaez|áspero|TERRA+DENTE
+saim|liso|ESTRELA+AGUA
+sunlol|pontudo|ESPADA/DENTE
+shilvum|quadrado|TERRA/JANELA
+hunuk|denso|MONTANHA+NUVEM
+dilgaes|abundante|MONTANHA+PAO
+teisaes|escasso|FLOR/VENTO
+zathug|inteiro|CORACAO+COPO
+dasas|quebrado|COPO+ESPADA
+kaez|aberto|PORTA/SOL
+nensor|fechado|TERRA/PORTA
+midzosh|acordado|OLHO+PE
+okhair|adormecido|TERRA/OLHO
+rashaem|vivo|VENTO/CORACAO
+kigez|ardente|FOGO/VENTO
+nush|gelado|VENTO+AGUA
+bekai|morno|SOL/AGUA
+naex|fresco|FLOR/AGUA
+shairom|podre|TERRA/PAO
+druztun|maduro|SOL+GOTA
+druvrir|cedo|CAMINHO/FLOR
+keid|madrugada|LUA/CAMINHO
+shekis|estação|ARVORE/LUA
+simkaid|idade|ARVORE/ESTRELA
+thotam|juventude|FLOR/ESTRELA
+sektad|milhão|N10+MONTANHA
+vaik|pessoa|CAMINHO/ESTRELA
+zaz|coisa;objeto|LUA+TERRA
+drekdan|lugar|ESTRELA+PE
+sidrek|algo;alguma coisa|NUVEM+VENTO
+thomgu|assim
+skuhes|quase
+thak|apenas;somente
+uvod|desde
+ruz|durante
+gaskael|antes
+kaivig|depois
+lezin|enquanto
+sarok|nem
+sheg|através
+ruklos|ao redor;em volta
+taihir|separado
+trusig|nenhum;nenhuma
+grehith|de novo;outra vez
+luthein|às vezes
+areir|geralmente
+nig|além
+zathog|diante;frente
+sitri|atrás
+draedu|ao lado
+vraez|quanto
+thuxshus|fazer;realizar|JANELA+MAO
+hothsu|dizer|CAMINHO/BOCA
+thaixsun|ser;estar|ARANHA+PESSOA
+dreztred|existir;haver|ESTRELA+GOTA
+kruzun|deixar;permitir|JANELA/MAO
+dirzu|levar|CASA/MAO
+sonkrin|trazer|PE/MAO
+zairoz|passar|PORTA/PE
+hon|mostrar|MAO/ANIMAL
+vrolgrer|continuar;prosseguir|CAMINHO+VENTO
+raedkiz|visitar|CASA/PE
+rix|morar;habitar|ASA/PESSOA
+kruix|cobrir;tapar|NUVEM/COBRA
+skuir|acender|FOGO/CABELO
+shuikrag|apagar|FOGO/AGUA
+shuiz|regar|AGUA/FLOR
+saith|semear|MAO/GOTA
+luik|ceifar|ESPADA/FLOR
+thushned|servir|MAO/ARANHA
+gretes|oferecer;presentear;presente|ASA+MAO
+shaimin|aceitar|ARVORE+MAO
+grai|negar|BOCA/PEIXE
+pludriz|proibir|PORTA/JANELA
+vasgran|ordenar|LUA+COROA
+lim|rugir|MONTANHA+ANIMAL
+geigres|zumbir;murmurar|ASA/VENTO
+fli|soar;ecoar|MONTANHA/BOCA
+lal|escurecer|LUA+VENTO
+grok|nevar|DENTE+NUVEM
+nailrig|chover|NUVEM/AGUA
+skum|ventar|VENTO+NUVEM
+tririm|congelar|LUA/AGUA
+thuis|derreter|FOGO/BOCA
+plaekro|secar|AGUA/SOL
+tum|molhar|AGUA+PORTA
+skuskrom|inchar|VENTO/JANELA
+gruz|encolher|MONTANHA/FLOR
+sor|apodrecer|PAO/LUA
+ruikskox|florescer|FLOR/FOGO
+saekvrad|murchar|LUA+FLOR
+vreistos|brotar|FLOR/CAMINHO
+dae|tropeçar|PE/ESPADA
+logrox|escorregar|PE+AGUA
+haix|girar;rolar|SOL+VENTO
+kik|sacudir|MAO/PEIXE
+leid|chutar|PE+ESPADA
+reimik|esmagar|MONTANHA/ANIMAL
+graix|rachar|GOTA/TERRA
+tishvran|grudar|GOTA+MAO
+vreith|trancar|PORTA+COBRA
+treireth|espiar|OLHO/CASA
+baikram|escutar|AGUA+CABELO
+mog|mastigar|BOCA+DENTE
+raigkrol|soprar|VENTO/ESTRELA
+sonek|assobiar|VENTO+LUA
+vukgram|cochilar|LUA+AGUA
+zaekran|despertar|OLHO+PAO
+mumtid|calçar|PE/PAO
+saedthis|enxugar|MAO/ASA
+lixthed|escovar|CABELO/JANELA
+vrash|envenenar|COBRA+BOCA
+gailro|adoecer|PESSOA/ARANHA
+trim|sarar|COBRA+FLOR
+lam|envelhecer|ANIMAL/PESSOA
+nuir|assassinar|ESPADA/LUA
+vaeszu|enforcar|GOTA/CABELO
+trergron|incendiar|FOGO/COROA
+trikre|destruir;arruinar|CASA/VENTO
+vikshan|consertar;reparar|FLOR/MAO
+drotath|forjar|FOGO/ESPADA
+vuizkax|moldar|PEIXE/MAO
+flon|entalhar|ARVORE/ESPADA
+pleivra|polir|MAO/ARVORE
+tragmug|afiar|DENTE/COROA
+shaez|riscar;gravar|ESPADA/JANELA
+bod|assinar|GOTA/MAO
+saig|carimbar|ASA/MAO
+bemshosh|guardar;armazenar|COPO/CASA
+draiz|coletar|ANIMAL/MAO
+vrei|repartir|PAO+PEIXE
+meilgrem|cumprir|CORACAO/COPO
+drornuk|merecer|GOTA/CORACAO
+haengrid|apostar|ARANHA/MAO
+brux|jogo|ARANHA+MAO
+rag|patrulhar|PE/OLHO
+kraek|invadir|ESPADA/CASA
+skaizsi|escapar|VENTO+PE
+bin|cercar|ESPADA/SOL
+druin|rendição|PAO/ESPADA
+todthi|lançar
+sku|mirar|OLHO+ARANHA
+braim|acertar|ESPADA/BOCA
+thur|errar|ESPADA/NUVEM
+trixkon|estremecer|VENTO/TERRA
+brelshez|seduzir|MONTANHA/OLHO
+tril|encantar|OLHO+ARVORE
+thungrox|hipnose|CASA/OLHO
+brein|frenesi|FOGO/GOTA
+tramvrin|mutilar|ESPADA/ARANHA
+vuiltoth|devorar|BOCA/ASA
+krathdro|sugar;chupar|BOCA/CABELO
+dras|gerar;procriar|PAO/PESSOA
+braz|reanimar|CORACAO+CABELO
+biz|sedução|GOTA+OLHO
+kreixkin|vampirismo|DENTE/LUA
+trimsku|lobisomem|ARANHA/PESSOA
+nag|estaca|ARVORE+ESPADA
+lutok|sanguessuga|ANIMAL/GOTA
+laethra|hospedeiro|PESSOA/COPO
+sonshis|progenitor;criador|PEIXE/PESSOA
+braidkod|prole;cria|PESSOA/COBRA
+muitith|matilha|LUA/ANIMAL
+grix|horda|COBRA/PESSOA
+guishnur|lúgubre;funesto|COBRA+CORACAO
+gaez|espectral|NUVEM/PAO
+reinkrun|herético;herege|JANELA+BOCA
+sheilnid|inquisidor|OLHO/COROA
+zuthvi|bispo;abade|CASA/COROA
+truigmul|monja;freira|COPO/PESSOA
+pluid|eremita;ermitão|PESSOA+COBRA
+plei|feiticeiro|JANELA/PESSOA
+neig|druida|PEIXE+PESSOA
+grodri|arqueiro|COBRA+PESSOA
+baevix|escudeiro
+novrox|capitão
+brid|general|MONTANHA+COROA
+vre|sentinela
+greith|arauto
+shisgrax|regente|CAMINHO/COROA
+gre|conselheiro
+bugrus|bufão
+beig|trovador;menestrel
+trirkog|artesão
+trae|carpinteiro
+maidtrun|pedreiro
+nam|tecelão;costureiro
+zaim|sapateiro
+hekkrok|alfaiate
+teiktad|açougueiro
+taesku|cervejeiro
+nathor|taverneiro;estalajadeiro
+zaith|cozinheiro
+heth|criado;criada
+sis|camareira
+graknesh|parteira
+vaema|coveiro
+maer|carrasco
+veshtha|oleiro
+seim|mineiro
+trure|lenhador
+breivish|caçadora
+laelsik|barqueiro
+pleil|marinheiro;marujo
+brair|pirata
+laerdrik|bandido;salteador
+nez|mendicante
+fligketh|manco|ESPADA/PE
+sotrug|órfão;órfã
+veirkan|noivo;noiva|ASA/CORACAO
+shai|amante|CORACAO+ANIMAL
+vum|parente|CASA/CAMINHO
+flaemul|primo;prima
+fluid|sobrinho;sobrinha|FLOR/PE
+tilgrug|cunhado;cunhada
+shalvrur|madrasta;padrasto
+tithreth|padrinho;madrinha
+zim|dedão;polegar
+fluirsha|calcanhar|VENTO/PE
+grenshak|coxa|PE/ARVORE
+gilson|quadril;cintura|CABELO+PE
+vralmam|nuca|CABELO/COPO
+plaenro|gengiva|DENTE+BOCA
+krushnu|pálpebra|OLHO/CABELO
+graem|cílio|OLHO+ASA
+mukash|bigode|CABELO/BOCA
+reix|pelo|CABELO+ANIMAL
+geisvrex|couro
+lash|músculo
+raed|nervo|GOTA+CABELO
+truimag|hálito|NUVEM/CAMINHO
+skeig|ossada;esqueleto
+tuil|cadáver
+meshdrag|verme;larva|COBRA/PAO
+veil|lontra|AGUA/ANIMAL
+brigru|castor|ANIMAL/VENTO
+trad|gazela|VENTO/ANIMAL
+kaim|zebra|ANIMAL/ASA
+nurnur|girafa|ANIMAL/NUVEM
+sudshox|hipopótamo|ANIMAL+COROA
+leik|crocodilo;jacaré|COBRA+DENTE
+taerkram|lagarto|COBRA+PE
+rixneth|salamandra|FOGO+COBRA
+gotre|gaivota|AGUA/ASA
+fluivreg|pelicano|ASA/PEIXE
+trash|flamingo|GOTA/ASA
+gamal|avestruz|PE+ASA
+huis|tucano|FLOR/ASA
+hin|cuco|ASA/LUA
+zudrix|melro|LUA/ASA
+rai|perdiz;codorna|ASA/PAO
+skaish|peru|ASA+PAO
+ther|atum|PEIXE/MONTANHA
+leikked|truta|PEIXE/CAMINHO
+flei|carpa|PEIXE+FLOR
+naigto|sardinha|PEIXE+PORTA
+vod|arraia|ASA+PEIXE
+plainrux|lula|PEIXE/NUVEM
+sog|medusa|NUVEM+PEIXE
+grax|coral|PEIXE/FLOR
+flom|concha|PEIXE/CASA
+hakvra|pérola|GOTA+ESTRELA
+naxgrash|mexilhão|PEIXE/COPO
+beisnaz|camarão|PEIXE/VENTO
+shedrur|libélula|AGUA+ASA
+plomshu|cigarra|ASA/CABELO
+buith|joaninha|GOTA+ASA
+sol|barata|ARANHA/CASA
+shethtri|piolho|ARANHA/CABELO
+raegsa|casulo|ASA/NUVEM
+shormun|touro|FOGO+ANIMAL
+gaes|jumento|ANIMAL/CORACAO
+huik|bisão|PAO/ANIMAL
+hun|foca;morsa|ANIMAL/ARANHA
+himsos|rinoceronte|ANIMAL/ESPADA
+sedkath|tronco|ARVORE/PE
+vraemke|broto|PE+FLOR
+sig|botão|FLOR/CASA
+dumtez|pétala|FOGO/FLOR
+shaxsun|pólen|VENTO/FLOR
+grakresh|néctar|FLOR/COPO
+zaer|seiva|ARVORE/AGUA
+zosno|resina|ARVORE/VENTO
+deimu|madeira;tábua|ARVORE+PEIXE
+gruiske|lenha|ARVORE+FOGO
+brar|mata;selva|ARVORE/JANELA
+sei|clareira|JANELA/ARVORE
+kaezrir|pradaria;savana|FLOR+CAMINHO
+flaim|oásis|AGUA+SOL
+ruir|duna|TERRA/ASA
+thuk|geleira|MONTANHA/AGUA
+trilsux|tundra|TERRA/MONTANHA
+bred|península|TERRA/COPO
+krevux|golfo;baía;enseada|PE/AGUA
+drentesh|foz;delta|AGUA/DENTE
+tessan|lagoa;açude|ESTRELA/AGUA
+bagmos|represa|PORTA+AGUA
+plakso|canal|AGUA/PORTA
+kodtrem|aqueduto|AGUA+COROA
+skuikgro|fenda;greta|GOTA+TERRA
+vrae|cratera|MONTANHA/GOTA
+pluilrus|cume;pico|MONTANHA/ESTRELA
+thal|encosta;ladeira|MONTANHA+PORTA
+bitim|planalto|MONTANHA/TERRA
+zeshshas|desfiladeiro|MONTANHA/PAO
+flidral|estrada|CAMINHO/CASA
+grael|encruzilhada|VENTO+CAMINHO
+brath|lodo|OLHO+AGUA
+draesh|ciclone|VENTO/AGUA
+vraimros|alvorada|SOL+COROA
+kix|poente|CASA+SOL
+brin|lua-cheia|CASA/LUA
+kei|lua-nova|LUA/COPO
+krukna|minguante|LUA/FLOR
+nelmeth|constelação|ESTRELA+ARANHA
+raig|planeta|ESTRELA/COROA
+zuim|universo|ESTRELA/GOTA
+breix|minuto|SOL/GOTA
+ruthkir|época|SOL/DENTE
+vro|outrora;antigamente|SOL/CABELO
+sakid|anteontem|LUA+GOTA
+plishek|jamais|SOL/PORTA
+buived|zero|TERRA/PEIXE
+har|centena;cento|N10/N5
+plui|sexto|N6+SOL
+deid|sétimo|N7+SOL
+skain|oitavo|N8+SOL
+gith|nono|N9+SOL
+vrushkud|décimo|N10+SOL
+skaem|dúzia|N10/N2
+krae|terço|N3/N1
+bais|ambos|N2/PESSOA
+saish|vários;diversos|ESTRELA+FLOR
+vremzesh|maioria
+naitez|minoria
+baikrim|adaga|JANELA/ESPADA
+shaex|clava|COPO+ARVORE
+bith|funda|CABELO/VENTO
+skoztrom|catapulta|ARVORE/MONTANHA
+zaez|capacete|CABELO/MONTANHA
+brasmas|couraça
+skardran|guarnição|CASA/ESPADA
+guimzir|masmorra|JANELA/LUA
+thaesh|forca|ARVORE/CABELO
+reixtem|guilhotina|LUA+ESPADA
+tairtush|tapeçaria|JANELA/CABELO
+droskath|vitral|JANELA+ESTRELA
+hex|tinteiro|GOTA/COPO
+suig|biblioteca|JANELA+CASA
+dromkro|escola
+sarkrax|universidade
+ton|hospital
+tae|ferraria|FOGO+JANELA
+meim|padaria|PAO+CAMINHO
+tuisnir|açougue|ESPADA+CASA
+haedtith|oficina
+plithgri|armazém|COPO/SOL
+bran|chiqueiro|ANIMAL/PEIXE
+gosgrez|curral|ANIMAL/PORTA
+daeskum|cabana;choupana|ARVORE/CASA
+plaiz|mansão;solar|CASA/GOTA
+teizdrul|fogão|PAO/FOGO
+ruixshig|caldeira|FOGO/COPO
+truikvil|jarra|COPO/DENTE
+bruizkre|copo|COPO+CAMINHO
+getrer|caneca|COPO/ESPADA
+nel|bacia|COPO/CABELO
+nuik|balde|CABELO+COPO
+vraesh|travesseiro|LUA/CABELO
+gix|colchão|LUA/ESPADA
+zaid|lençol|NUVEM+GOTA
+buin|cadeado|PORTA/PEIXE
+drainnuz|chaveiro|PORTA+COPO
+vrokkras|cesto|COPO/OLHO
+laimri|fardo;carga
+bramvod|serra|ARANHA/ESPADA
+laisno|prego|DENTE/ESPADA
+mox|parafuso|VENTO/ESPADA
+brush|gancho|AGUA/ESPADA
+nuntud|vara;haste|CABELO/ARVORE
+greish|fio;linha|TERRA+CABELO
+krox|novelo|SOL+CABELO
+toxmeth|roca;fuso|CABELO/ESPADA
+bruid|seda|CABELO/ASA
+treim|linho|CABELO+FLOR
+duikshu|veludo|AGUA/NUVEM
+thuik|renda|CABELO/FLOR
+duitre|luva
+lekrish|vestido
+sezror|túnica
+seik|esmeralda|ESTRELA+ARVORE
+zenskax|rubi|ESTRELA+ESPADA
+roth|safira|ESTRELA+COPO
+thaed|ametista|ESTRELA+PAO
+shil|bronze|TERRA/COBRA
+draed|estanho|TERRA/CABELO
+bril|chumbo|MONTANHA+TERRA
+kek|aço|ESPADA/FOGO
+kuthtrog|sangue-velho|GOTA/LUA
+bizzosh|sangue-novo|GOTA/SOL
+vestrak|véu-da-noite|NUVEM/GOTA
+skeimsom|primeira-noite|LUA/PE
+thuxtriz|refúgio;abrigo|CASA/PORTA
+dain|tentação|FOGO+OLHO
+maendrem|virtude|CORACAO/ARANHA
+duir|vício|COBRA/CORACAO
+skuxro|mentiroso|BOCA/COBRA
+ruik|loucura|VENTO/CABELO
+baemsha|perturbação|CORACAO+ASA
+hergrul|angústia|CORACAO/JANELA
+haezvro|tormento|CORACAO/ANIMAL
+dreidzu|lamento|CORACAO/DENTE
+thothzi|amor|ANIMAL+CORACAO
+todthum|amizade
+skai|inimizade|JANELA+ESPADA
+rugkez|traição|ESPADA/ASA
+drek|vingativo|FOGO+ESPADA
+gri|bondade|PE/CORACAO
+sozu|maldade|COPO/CORACAO
+luirvre|beleza|OLHO/FLOR
+flozskug|feiura|OLHO/ASA
+trezshoz|fraqueza
+kiltrom|velocidade|PE/FOGO
+keixshuk|inteligência|VENTO+CABELO
+bish|imaginação|MONTANHA/CABELO
+laemkre|pensamento|CABELO/AGUA
+trugtum|ideia|CABELO+PAO
+pledskis|vontade|CORACAO/PEIXE
+zuirmuz|escravidão
+nizthix|cativeiro|JANELA/COROA
+thudzim|glória|VENTO/COROA
+plom|fama|BOCA/ARANHA
+druil|riqueza|SOL/JANELA
+reith|pobreza|PEIXE/TERRA`;
+const ART=new Set(['O','A','OS','AS','UM','UMA','UNS','UMAS']);
+const D={},R={};
+DATA.split('\n').forEach(ln=>{const [v,g,sp]=ln.split('|');const gl=g.split(';');D[v]={g:gl,sp};gl.forEach(x=>{const k=clean(x);if(!R[k])R[k]=v;});});
+
+function lk(c){
+  if(R[c]) return R[c];
+  if(c.length>2&&c.endsWith('A')&&R[c.slice(0,-1)+'O']) return R[c.slice(0,-1)+'O'];
+  return null;
+}
+const ENDS=['ANDO','ENDO','INDO','AMOS','EMOS','IMOS','ARAM','ERAM','IRAM','AVA','MOS','AM','EM','AS','ES','OU','EU','EI','IA','O','A','E'];
+function fromPt(tok){
+  const k=clean(tok); if(!k||ART.has(k)) return {skip:1};
+  let b=lk(k); if(b) return {v:b,b};
+  if(k.endsWith('S')){
+    const c=[k.slice(0,-1)];
+    if(k.endsWith('ES')) c.push(k.slice(0,-2));
+    if(k.endsWith('AIS')) c.push(k.slice(0,-3)+'AL');
+    if(k.endsWith('OES')||k.endsWith('AES')) c.push(k.slice(0,-3)+'AO');
+    if(k.endsWith('NS')) c.push(k.slice(0,-2)+'M');
+    for(const x of c){const bb=lk(x); if(bb) return {v:bb+'en',b:bb,sfx:'en'};}
+  }
+  for(const e of ENDS)
+    if(k.endsWith(e)&&k.length>e.length+1){const st=k.slice(0,-e.length);
+      for(const f of ['AR','ER','IR']) if(R[st+f]) return {v:R[st+f],b:R[st+f]};}
+  return {raw:k.toLowerCase()};
+}
+function fromVp(tok){
+  const v=norm(tok).toLowerCase().replace(/[^a-z-]/g,''); if(!v) return {skip:1};
+  if(D[v]) return {v,b:v};
+  for(const e of ['en','ti']) if(v.endsWith(e)&&D[v.slice(0,-2)]) return {v,b:v.slice(0,-2),sfx:e};
+  return {v};
+}
+
+// ---------- pictogramas (radicais): h(y,x1,x2) v(x,y1,y2) em grade 0–10 ----------
+const wv=y=>`h${y},0,2 v2,${y},${y+1} h${y+1},2,4 v4,${y},${y+1} h${y},4,6 v6,${y},${y+1} h${y+1},6,8 v8,${y},${y+1} h${y},8,10`;
+const tally=n=>{const o=[];const row=(c,a,b)=>{for(let i=0;i<c;i++)o.push(`v${5+(i-(c-1)/2)*2},${a},${b}`)};
+  if(n<=5) row(n,1,9); else{row(5,0,4);row(n-5,6,10);} return o.join(' ');};
+const PIC={
+CASA:'h1,4,6 v4,1,3 v6,1,3 h3,2,4 h3,6,8 v2,3,5 v8,3,5 h5,0,2 h5,8,10 v2,5,10 v8,5,10 h10,2,8 v4,6,10 v6,6,10 h6,4,6',
+SOL:'h3,3,7 h7,3,7 v3,3,7 v7,3,7 h5,0,10 v5,0,10',
+LUA:'h1,2,8 v2,1,9 h9,2,8 h3,4,6 v4,3,7 h7,4,6 h5,2,4',
+AGUA:wv(2)+' '+wv(5)+' '+wv(8)+' v5,0,10',
+FOGO:'v5,0,2 h2,3,7 v3,2,5 v7,2,5 h5,1,3 h5,7,9 v1,5,9 v9,5,9 h9,1,9 h6,4,6 v4,6,9 v6,6,9',
+ARVORE:'h1,3,7 v3,1,3 h3,1,3 v1,3,5 h5,1,9 v9,3,5 h3,7,9 v7,1,3 v5,1,5 h3,3,7 v5,5,10 h10,3,7',
+PESSOA:'h1,4,6 h3,4,6 v4,1,3 v6,1,3 v5,3,8 h5,2,8 h8,3,7 v3,8,10 v7,8,10',
+OLHO:'h2,2,8 h8,2,8 v2,2,8 v8,2,8 h4,4,6 h6,4,6 v4,4,6 v6,4,6 h5,2,4 h5,6,8 v5,0,2',
+BOCA:'h2,1,9 h8,1,9 v1,2,8 v9,2,8 h5,1,9 v4,2,5 v6,2,5',
+MAO:'h6,1,9 h9,1,9 v1,6,9 v9,6,9 v2,2,6 v4,1,6 v6,0,6 v8,2,6',
+MONTANHA:'h1,4,6 v4,1,3 v6,1,3 h3,2,4 h3,6,8 v2,3,5 v8,3,5 h5,0,2 h5,8,10 v0,5,9 v10,5,9 h9,0,10 h3,4,6',
+FLOR:'h3,4,6 h5,4,6 v4,3,5 v6,3,5 v5,0,3 h4,2,4 h4,6,8 v2,3,5 v8,3,5 v5,5,10 h8,5,8 v8,6,8',
+PEIXE:'h3,2,7 h7,2,7 v2,3,7 v7,3,7 h5,7,9 v9,3,7 v4,1,3',
+CORACAO:'h1,1,4 v1,1,5 v4,1,3 h3,4,6 v6,1,3 h1,6,9 v9,1,5 h5,1,2 v2,5,6 h6,2,3 v3,6,7 h7,3,4 v4,7,8 h8,4,6 h5,8,9 v8,5,6 h6,7,8 v7,6,7 h7,6,7 v6,7,8',
+ESTRELA:'v5,1,9 h5,1,9 h3,4,6 h7,4,6 v3,4,6 v7,4,6',
+PORTA:'h1,2,8 v2,1,10 v8,1,10 h10,1,9 h6,5,8',
+JANELA:'h1,1,9 h9,1,9 v1,1,9 v9,1,9 v5,1,9 h5,1,9',
+CAMINHO:'v3,0,10 v7,0,10 v5,1,3 v5,4,6 v5,7,9',
+GOTA:'v5,0,2 h2,4,6 v4,2,4 v6,2,4 h4,2,4 h4,6,8 v2,4,8 v8,4,8 h8,2,8',
+DENTE:'h2,2,8 v2,2,7 v8,2,7 h7,2,4 h7,6,8 v4,7,10 v6,7,10',
+PE:'v3,0,10 v9,7,10 h7,3,9 h10,3,9',
+CABELO:'h1,1,9 v1,1,9 v3,1,9 v5,1,9 v7,1,9 v9,1,9',
+PAO:'h2,3,7 v3,2,3 h3,1,3 v1,3,8 h8,1,9 v9,3,8 h3,7,9 v7,2,3 v4,4,6 v6,4,6',
+COPO:'h1,2,8 v2,1,5 v8,1,5 h5,2,8 v5,5,9 h9,3,7',
+ESPADA:'v5,0,7 h7,2,8 v5,7,10 h10,4,6',
+COROA:'h9,1,9 v1,3,9 v3,5,9 v5,1,9 v7,5,9 v9,3,9',
+TERRA:'h4,0,10 v1,4,10 v4,4,10 v7,4,10 v10,4,10',
+ASA:'h2,0,8 v0,2,9 v2,2,8 v4,2,7 v6,2,6 v8,2,5',
+ANIMAL:'h4,1,8 v1,4,8 v3,4,8 v6,4,8 v8,1,8 h1,8,10 v10,1,4 h4,8,10',
+COBRA:'h2,2,8 v2,2,5 h5,2,8 v8,5,8 h8,2,8',
+NUVEM:'h2,3,7 v3,2,4 v7,2,4 h4,1,3 h4,7,9 v1,4,7 v9,4,7 h7,1,9',
+VENTO:'h2,1,8 v8,2,4 h4,5,8 h6,0,6 v0,6,8 h8,0,4',
+ARANHA:'h4,4,6 h6,4,6 v4,4,6 v6,4,6 h3,1,4 h3,6,9 h7,1,4 h7,6,9 v1,3,7 v9,3,7'};
+for(let n=1;n<=10;n++) PIC['N'+n]=tally(n);
+
+function pic(spec){
+  const S=13,h=+gp.value/2, mm=spec.match(/^(\w+)(?:([+/])(\w+))?$/); if(!mm) return null;
+  let parts=[[mm[1],0,0,1,1]];
+  if(mm[2]){const hz=mm[2]==='+'; parts=[[mm[1],0,0,hz?.5:1,hz?1:.5],[mm[3],hz?5*S:0,hz?0:5*S,hz?.5:1,hz?1:.5]];}
+  let g='';
+  parts.forEach(([n,ox,oy,sx,sy])=>{ if(!PIC[n]) return;
+    PIC[n].split(' ').forEach(tk=>{
+      const [c,a,b]=tk.slice(1).split(',').map(Number);
+      if(tk[0]==='h'){const q1=ox+a*S*sx+h,q2=ox+b*S*sx-h; if(q2>q1) g+=`<line x1="${q1}" y1="${oy+c*S*sy}" x2="${q2}" y2="${oy+c*S*sy}"/>`;}
+      else{const q1=oy+a*S*sy+h,q2=oy+b*S*sy-h; if(q2>q1) g+=`<line x1="${ox+c*S*sx}" y1="${q1}" x2="${ox+c*S*sx}" y2="${q2}"/>`;}
+    });});
+  const W=10*S+PAD*2;
+  return {W,H:W,g:`<g transform="translate(${PAD},${PAD})">${g}</g>`};
+}
+
+// ---------- soletrar com o alfabeto de traços ----------
+function glyph(word,per){
+  const L=[...norm(word)].filter(c=>MAP[c]); if(!L.length) return null;
+  const cols=Math.ceil(L.length/per), rows=Math.min(L.length,per), h=+gp.value/2;
+  const W=PAD*2+cols*CW+(cols-1)*14, H=PAD*2+rows*CH; let g='';
+  L.forEach((c,i)=>{const x0=PAD+Math.floor(i/per)*(CW+14),cy=PAD+(i%per)*CH+CH/2;
+    [...MAP[c]].forEach((k,j)=>{const x=x0+j*SL,cx=x+SL/2;
+      if(k==='H'||k==='X') g+=`<line x1="${x+h}" y1="${cy}" x2="${x+SL-h}" y2="${cy}"/>`;
+      if(k==='V'||k==='X') g+=`<line x1="${cx}" y1="${cy-CH*.36}" x2="${cx}" y2="${cy+CH*.36}"/>`;});});
+  return {W,H,g};
+}
+function conn(word,per){
+  const L=[...norm(word)].filter(c=>MAP[c]); if(!L.length) return null;
+  const u=44,q=u/2; let x=0,y=0,dx=1,n=0,g='',x0=0,x1=0,y0=0,y1=0;
+  const bb=(a,b)=>{x0=Math.min(x0,a);x1=Math.max(x1,a);y0=Math.min(y0,b);y1=Math.max(y1,b);};
+  const ln=(a,b,c,e)=>{g+=`<line x1="${a}" y1="${b}" x2="${c}" y2="${e}"/>`;bb(a,b);bb(c,e);};
+  const down=()=>{const h=+gp.value/2;ln(x,y+h,x,y+u-h);y+=u;dx=-dx;n=0;};
+  L.forEach(c=>[...MAP[c]].forEach(k=>{
+    if(k==='V'){down();return;}
+    if(n>=per) down();
+    const nx=x+dx*u,h=+gp.value/2; ln(x+dx*h,y,nx-dx*h,y);
+    if(k==='X'){const cx=x+dx*q; ln(cx,y-q,cx,y+q);}
+    x=nx;n++;}));
+  return {W:x1-x0+PAD*2,H:y1-y0+PAD*2,g:`<g transform="translate(${PAD-x0},${PAD-y0})">${g}</g>`};
+}
+
+// ---------- alfabeto de símbolos (grade 40x40) ----------
+const dot=(x,y)=>`<circle cx="${x}" cy="${y}" r="2.6" fill="currentColor" stroke="none"/>`;
+const SYM={
+A:`<circle cx="20" cy="20" r="14"/>${dot(20,20)}`,
+B:`<path d="M13 4V36"/>${dot(26,10)}${dot(26,20)}${dot(26,30)}`,
+C:`<path d="M20 6A14 14 0 0 0 20 34Z"/>`,
+D:`<path d="M20 4V34M8 34H32"/>`,
+E:`<path d="M22 6A14 14 0 0 0 22 34"/>${dot(31,20)}`,
+F:`<path d="M12 6V28M12 6L28 16"/>${dot(12,35)}`,
+G:`<path d="M12 4V36M12 18Q34 18 12 36"/>`,
+H:`<path d="M20 6V36"/>${dot(8,22)}${dot(32,22)}`,
+I:`<path d="M6 8H34L20 34Z"/>`,
+J:`<path d="M20.0 16.5 L20.7 16.4 L21.6 16.4 L22.4 16.6 L23.2 17.0 L23.9 17.6 L24.5 18.3 L25.0 19.2 L25.2 20.3 L25.3 21.4 L25.1 22.5 L24.7 23.6 L24.0 24.6 L23.1 25.5 L22.0 26.2 L20.7 26.7 L19.3 26.9 L17.8 26.9 L16.4 26.5 L15.0 25.8 L13.8 24.8 L12.8 23.6 L12.0 22.1 L11.5 20.4 L11.4 18.7 L11.6 16.9 L12.2 15.2 L13.2 13.5 L14.5 12.1 L16.1 11.0 L18.0 10.2 L20.0 9.8 L22.1 9.7 L24.2 10.2 L26.2 11.1 L28.1 12.3 L29.6 14.0 L30.8 16.0 L31.6 18.2 L32.0 20.6 L31.8 23.1 L31.2 25.5 L30.0 27.7 L28.4 29.8 L26.3 31.4 L24.0 32.7 L21.4 33.4 L18.6 33.7 L15.8 33.3 L13.1 32.4 L10.6 30.9 L8.5 28.9 L6.7 26.5 L5.4 23.8 L4.8 20.8 L4.7 17.7 L5.3 14.5 L6.5 11.6 L8.3 8.9 L10.7 6.6 L13.5 4.8 L16.6 3.6 L20.0 3.0"/>`,
+K:`<path d="M12 34L20 6M24 34L32 6"/>`,
+L:`<path d="M26 6C14 6 14 18 20 20C28 22 28 34 14 34"/>`,
+M:`<path d="M20 4L34 20L20 36L6 20Z"/>`,
+N:`<path d="M20 4V36M8 14H32"/>`,
+O:`<path d="M4 20Q20 4 36 20Q20 36 4 20Z"/>`,
+P:`<path d="M20 6L30 18H10ZM20 18V36"/>`,
+Q:`<circle cx="20" cy="10" r="6"/><path d="M20 16V36"/>`,
+R:`<path d="M12 6L28 20L12 34Z"/>`,
+S:`<path d="M6 16L20 6L34 16M6 30L20 20L34 30"/>`,
+T:`${dot(20,10)}${dot(10,30)}${dot(30,30)}`,
+U:`<path d="M6 14A14 14 0 0 0 34 14"/>`,
+V:`<path d="M20 4V20M8 34L20 20L32 34"/>`,
+W:`<path d="M20 8V36M8 6L20 18L32 6"/>`,
+X:`<rect x="6" y="6" width="28" height="28"/>${dot(20,20)}`,
+Y:`<path d="M8 6V34H32Z"/>`,
+Z:`<path d="M4 14q4-6 8 0t8 0t8 0t8 0M4 28q4-6 8 0t8 0t8 0t8 0"/>`
+};
+
+const SATTR='stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+function wordS(w){
+  const L=[...norm(w)].filter(c=>SYM[c]); if(!L.length) return null;
+  const size=+zS.value, gap=+gS.value, sw=+sS.value, PD=10, k=size/40, vert=dirS.value==='v';
+  const n=L.length, len=n*size+(n-1)*gap;
+  const W=PD*2+(vert?size:len), H=PD*2+(vert?len:size);
+  let g='';
+  L.forEach((c,i)=>{
+    const x=PD+(vert?0:i*(size+gap)), y=PD+(vert?i*(size+gap):0);
+    g+=`<g transform="translate(${x},${y}) scale(${k})" stroke-width="${(sw/k).toFixed(2)}">${SYM[c]}</g>`;
+  });
+  return {W,H,g};
+}
+function miniS(w){
+  const L=[...norm(w)].filter(c=>SYM[c]); if(!L.length) return '';
+  const u=22,k=u/40; let g='';
+  L.forEach((c,i)=>{g+=`<g transform="translate(${i*(u+3)},0) scale(${k})" stroke-width="${(1.6/k).toFixed(2)}">${SYM[c]}</g>`;});
+  const W=L.length*(u+3)-3;
+  return `<svg width="${W}" height="${u}" viewBox="0 0 ${W} ${u}" ${SATTR}>${g}</svg>`;
+}
+(function(){
+  let a='';
+  for(const c of Object.keys(SYM))
+    a+=`<div><svg width="44" height="44" viewBox="0 0 40 40" ${SATTR}><g stroke-width="2.4">${SYM[c]}</g></svg><b>${c}</b></div>`;
+  document.getElementById('alf').innerHTML=a;
+})();
+function render(){
+  const V=vsel.value, per=+p.value, sw=+s.value;
+  pv.textContent=per; sv.textContent=sw; gv.textContent=gp.value;
+  zvS.textContent=zS.value; svS.textContent=sS.value; gvS.textContent=gS.value;
+  document.getElementById('c-t').hidden=V!=='t';
+  document.getElementById('c-s').hidden=V!=='s';
+  document.getElementById('alfd').hidden=V!=='s';
+  const toks=t.value.split(/\s+/).filter(Boolean);
+  let dir=src.value;
+  if(dir==='a'){
+    const nv=toks.filter(x=>fromVp(x).b).length, np=toks.filter(x=>{const r=fromPt(x);return r.skip||r.v}).length;
+    dir=nv>np?'v':'p';
+  }
+  const items=[];
+  toks.forEach(x=>{
+    if(dir==='p'){const r=fromPt(x); if(r.skip) return;
+      items.push({w:r.v||r.raw,b:r.b,pt:x.replace(/[^\p{L}-]/gu,''),miss:!r.v});}
+    else{const r=fromVp(x); if(r.skip) return;
+      items.push({w:r.v,b:r.b,miss:!r.b,pt:r.b?D[r.b].g[0]+(r.sfx==='en'?' (pl.)':r.sfx==='ti'?' (dim.)':''):r.v});}
+  });
+  tr.innerHTML='<b>Português</b><span id="a1"></span><b>Língua da Primeira Noite</b><span id="a2"></span>';
+  a1.textContent=items.map(i=>i.pt).join(' ');
+  a2.textContent=items.map(i=>i.miss&&dir==='p'?'['+i.w+']':i.w).join(' ');
+  out.innerHTML=''; window._items=[];
+  items.forEach(i=>{
+    const sp=i.b&&D[i.b].sp; let r=null,fb=false;
+    if(V==='s'){ r=wordS(i.w); if(r) r.attr=SATTR; }
+    else{
+      if(m.value==='p'&&sp) r=pic(sp);
+      if(!r){r=(m.value==='e'?glyph:conn)(i.w,per); fb=m.value==='p';}
+      if(r) r.attr=`stroke="currentColor" stroke-width="${sw}" stroke-linecap="butt" fill="none"`;
+    }
+    if(!r) return;
+    window._items.push(r);
+    const card=document.createElement('div'); card.className='w';
+    card.innerHTML=`<svg width="${r.W}" height="${r.H}" viewBox="0 0 ${r.W} ${r.H}" ${r.attr}>${r.g}</svg>`+(l.checked?'<small><b></b><br><span></span></small>':'');
+    if(l.checked){
+      card.querySelector('b').textContent=i.w;
+      card.querySelector('span').textContent=(i.miss&&dir==='p'?(V==='s'?'sem tradução · soletrado':'sem tradução · traço'):i.pt)+(V==='t'&&fb&&!i.miss&&!sp?' · traço':'');
+    }
+    out.appendChild(card);
+  });
+}
+d.onclick=async()=>{
+  const it=window._items||[]; if(!it.length) return;
+  const gap=24; let x=gap,H=Math.max(...it.map(i=>i.H))+gap*2,body='';
+  it.forEach(i=>{body+=`<g transform="translate(${x},${gap})"><g color="#000" ${i.attr.replace(/currentColor/g,'#000')}>${i.g.replace(/currentColor/g,'#000')}</g></g>`;x+=i.W+gap;});
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${x}" height="${H}" viewBox="0 0 ${x} ${H}"><rect width="100%" height="100%" fill="#fff"/>${body}</svg>`;
+  const fname=vsel.value==='s'?'glifos-simbolos.svg':'glifos-tracos.svg';
+  try{
+    const dl=await (window.claude?window.claude.use('downloads'):null);
+    if(dl){await dl.save({filename:fname,data:svg});return;}
+  }catch(e){ if(e&&e.code==='declined') return; }
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
+  a.download=fname; a.click();
+};
+
+// ---------- dicionário visível ----------
+const dic=document.getElementById('dic'), dq=document.getElementById('dq'), dl2=document.getElementById('dlist');
+document.getElementById('dn').textContent=Object.keys(D).length;
+let dver=null;
+function filtraDic(){
+  const q=norm(dq.value).toLowerCase().trim();
+  dl2.querySelectorAll('.de').forEach(el=>{el.style.display=(!q||norm(el.dataset.t).toLowerCase().includes(q))?'':'none';});
+}
+function buildDic(){
+  const V=vsel.value; if(dver===V) return; dver=V;
+  const ks=Object.keys(D).sort((a,b)=>a.localeCompare(b));
+  dl2.innerHTML=ks.map(v=>{
+    const e=D[v]; let svg='';
+    if(V==='s') svg=miniS(v);
+    else if(e.sp){const r=pic(e.sp); if(r) svg=`<svg class="pg" width="34" height="34" viewBox="0 0 ${r.W} ${r.H}" stroke="currentColor" stroke-width="7" stroke-linecap="butt" fill="none">${r.g}</svg>`;}
+    const txt=(v+' '+e.g.join(' ')).toLowerCase();
+    return `<div class="de" data-t="${txt.replace(/"/g,'')}">${svg||'<span class="nopic"></span>'}<span><b>${v}</b><br>${e.g.join(', ')}</span></div>`;
+  }).join('');
+  filtraDic();
+}
+dic.addEventListener('toggle',()=>{if(dic.open) buildDic();});
+dq.addEventListener('input',()=>{buildDic(); filtraDic();});
+[t,src,vsel,m,p,s,gp,l,dirS,zS,sS,gS].forEach(e=>e.addEventListener('input',render));
+vsel.addEventListener('input',()=>{if(dic.open) buildDic();});
+render();
+</script>
+</body>
+</html>
